@@ -45,6 +45,10 @@ namespace tmdbapi.Repos
         {
             return await Task.FromResult(_movieHelper.GetPaginatedMoviesListWithSearch(searchKeyWord, pageNumber));
         }
+        public async Task<MoviesList> GetMoviesListWithSearchAsync(string searchKeyWord)
+        {
+            return await Task.FromResult(_movieHelper.GetMoviesListWithSearch(searchKeyWord));
+        }
         public async Task<GenresList> GetMoviesGenreListAsync()
         {
             return await Task.FromResult(_movieHelper.GetMoviesGenreList());

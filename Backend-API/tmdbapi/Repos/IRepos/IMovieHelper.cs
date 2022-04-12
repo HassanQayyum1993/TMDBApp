@@ -9,6 +9,7 @@ namespace tmdbapi.Repos.IRepos
         MovieCast GetMovieCast(long movieId);
         MoviesList GetTopMoviesList(long pageNumber);
         MoviesList GetPaginatedMoviesListWithSearch(string searchKeyWord,long pageNumber);
+        MoviesList GetMoviesListWithSearch(string searchKeyWord);
         GenresList GetMoviesGenreList();
     }
 }

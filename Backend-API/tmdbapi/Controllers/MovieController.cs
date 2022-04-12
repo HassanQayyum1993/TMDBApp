@@ -42,10 +42,14 @@ namespace tmdbapi.Controllers
         }
 
         [HttpGet("GetPaginatedMoviesListWithSearch")]
-        public async Task<IActionResult> GetPaginatedMoviesListWithSearch(string searchKeyWord, int pageNumber)
+        public async Task<IActionResult> GetPaginatedMoviesListWithSearch(string searchKeyWord, int genreId,  int pageNumber)
         {
             var moviesList = await _movieRepository.GetPaginatedMoviesListWithSearchAsync(searchKeyWord, pageNumber);
             moviesList.results = moviesList.results.Where(c => c.title.ToUpper().Contains(searchKeyWord.ToUpper())).ToList();
+            if (genreId > 0)
+            {
+                moviesList.results = moviesList.results.Where(c => c.genre_ids.Contains(genreId)).ToList();
+            }
             moviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
             return new JsonResult(new { MoviesList = moviesList });
         }

@@ -1,5 +1,5 @@
 <div *ngIf="topMoviesList">
-    <mat-table style="width:70%; margin-left: 135px;" #table [dataSource]="topMoviesList.results">
+    <mat-table style="width:70%;" #table [dataSource]="topMoviesList.results">
 
         <ng-container matColumnDef="PosterImage">
             <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>

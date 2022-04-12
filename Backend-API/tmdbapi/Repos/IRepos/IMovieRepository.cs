@@ -9,6 +9,7 @@ namespace tmdbapi.Repos.IRepos
         Task<MovieCast> GetMovieCastAsync(long movieId);
         Task<MoviesList> GetTopMoviesListAsync(long pageNumber);
         Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, long pageNumber);
+        Task<MoviesList> GetMoviesListWithSearchAsync(string searchKeyWord);
         Task<GenresList> GetMoviesGenreListAsync();
     }
 }

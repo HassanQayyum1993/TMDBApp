@@ -1,22 +1,30 @@
+<div style="margin-bottom: 25px; margin-top: 25px;" fxLayout="row" fxLayoutAlign="start start">
+    <div style="font-weight: 100;" fxFlex>
+        Search by movie name and/or genre
+    </div>
+</div>
 <div fxLayout="row" fxLayoutAlign="start start">
-    <mat-form-field appearance="outline" fxFlex>
+    <mat-form-field style="margin-right: 25px;" appearance="outline" fxFlex>
         <mat-label>Search with movie name</mat-label>
         <input [(ngModel)]="searchKeyWord" name="Search" matInput type="text">
     </mat-form-field>
-    <mat-form-field appearance="outline" fxFlex>
+    <mat-form-field style="margin-right: 25px;" appearance="outline" fxFlex>
         <mat-label>Search by genre</mat-label>
-        <mat-select [(ngModel)]="cwId2" (selectionChange)="genreId = $event.Value">
+        <mat-select (selectionChange)="setGenreId($event)">
+            <mat-option [value]="0"></mat-option>
             <mat-option *ngFor="let genre of genreList" [value]="genre.id">
                 {{genre.name}}
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <button style="margin-top: 1em; margin-left: 1.5em; background: darkred; color: white" (click)="refreshList()" mat-button aria-label="Continue">
+    <button mat-raised-button [disabled]="searchKeyWord == null"
+        style="margin-top: 1em; margin-left: 1.5em; background: darkred; color: white" (click)="refreshList()"
+        mat-button aria-label="Continue">
         Continue
     </button>
 </div>
 <div *ngIf="moviesList">
-    <mat-table style="width:70%; margin-left: 135px;" #table [dataSource]="moviesList.results">
+    <mat-table style="width:70%;" #table [dataSource]="moviesList.results">
 
         <ng-container matColumnDef="PosterImage">
             <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
@@ -62,9 +70,8 @@
     </div>
 </ng-template>
 
-<div *ngIf="topMoviesList">
-    <mat-paginator *ngIf="topMoviesList.total_results > 0" [length]="topMoviesList.total_results"
-        [pageSizeOptions]="[20]" [showFirstLastButtons]="true" [pageIndex]="pageIndex" [pageSize]="pageSize"
-        (page)="handlePage($event)">
+<div *ngIf="moviesList">
+    <mat-paginator *ngIf="moviesList.total_results > 0" [length]="moviesList.total_results" [pageSizeOptions]="[20]"
+        [showFirstLastButtons]="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="handlePage($event)">
     </mat-paginator>
 </div>

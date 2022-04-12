@@ -21,7 +21,6 @@ export class TopMoviesListComponent implements OnInit {
 
   handlePage(event)
   {
-    debugger;
     this.pageNumber = event.pageIndex+1;
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
       this.topMoviesList = response.topMoviesList;

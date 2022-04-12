@@ -85,6 +85,15 @@ namespace tmdbapi.Repos
             var resultObj = JsonSerializer.Deserialize<MoviesList>(apiResponse);
             return resultObj;
         }
+        public MoviesList GetMoviesListWithSearch(string searchKeyWord)
+        {
+            List<string> resultList = new List<string>();
+            string requestURL = "https://api.themoviedb.org/3/search/movie" + "?" + this.apiKey + "&language=en-US&query=" + searchKeyWord + "&include_adult=false";
+            string apiResponse = this.Get(requestURL);
+            var resultObj = JsonSerializer.Deserialize<MoviesList>(apiResponse);
+            return resultObj;
+        }
+
 
         public GenresList GetMoviesGenreList()
         {

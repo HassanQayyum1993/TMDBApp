@@ -27,8 +27,8 @@ export class MovieService {
             );;
     }
 
-    GetPaginatedMoviesListWithSearch(searchKeyWord: string, pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedMoviesListWithSearch?searchKeyWord='+ searchKeyWord + '&pageNumber=' + pageNumber)
+    GetPaginatedMoviesListWithSearch(searchKeyWord: string, genreId: number, pageNumber: number): Observable<any> {
+        return this.http.get<any>(this.url + '/GetPaginatedMoviesListWithSearch?searchKeyWord='+ searchKeyWord + '&genreId=' +  genreId + '&pageNumber=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );;
