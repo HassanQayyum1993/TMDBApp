@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MovieListComponent } from './movie-list/movie-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatInputModule } from "@angular/material/input";
@@ -24,13 +23,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MovieService } from './movie-list/movie-list.service';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MovieComponent } from './movie/movie.component';
+import { SearchMoviesComponent } from './movie/search-movies/search-movies.component';
+import { TopMoviesListComponent } from './movie/top-movies-list/top-movies-list.component';
+import { MovieService } from './movie/movie.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MovieListComponent,
+    MovieComponent,
+    SearchMoviesComponent,
+    TopMoviesListComponent,
   ],
   imports: [
     BrowserModule,

@@ -35,9 +35,10 @@ namespace tmdbapi.Controllers
         [HttpGet("GetPaginatedTopMoviesList")]
         public async Task<IActionResult> GetTopMovieList(int pageNumber)
         {
+
             var topMoviesList = await _movieRepository.GetTopMoviesListAsync(pageNumber);
-            
-            return new JsonResult(new { TopMoviesList = topMoviesList});
+            topMoviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path;});
+            return new JsonResult(new { TopMoviesList = topMoviesList });
         }
 
         [HttpGet("GetPaginatedMoviesListWithSearch")]
@@ -45,6 +46,7 @@ namespace tmdbapi.Controllers
         {
             var moviesList = await _movieRepository.GetPaginatedMoviesListWithSearchAsync(searchKeyWord, pageNumber);
             moviesList.results = moviesList.results.Where(c => c.title.ToUpper().Contains(searchKeyWord.ToUpper())).ToList();
+            moviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
             return new JsonResult(new { MoviesList = moviesList });
         }
 
@@ -61,8 +63,8 @@ namespace tmdbapi.Controllers
         [HttpGet("GetMoviesGenreList")]
         public async Task<IActionResult> GetMoviesGenreList()
         {
-            var genresList = await _movieRepository.GetMoviesGenreListAsync();
-            return new JsonResult(new { MoviesList = genresList });
+            var genreList = await _movieRepository.GetMoviesGenreListAsync();
+            return new JsonResult(new { GenreList = genreList });
         }
     }
 }

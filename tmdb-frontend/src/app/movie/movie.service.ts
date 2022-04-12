@@ -28,14 +28,14 @@ export class MovieService {
     }
 
     GetPaginatedMoviesListWithSearch(searchKeyWord: string, pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedMoviesListWithSearch/'+ searchKeyWord + '/' + pageNumber)
+        return this.http.get<any>(this.url + '/GetPaginatedMoviesListWithSearch?searchKeyWord='+ searchKeyWord + '&pageNumber=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );;
     }
 
     GetPaginatedMoviesListByGenre(genre: string, pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedMoviesListByGenre/' + genre + '/' + pageNumber)
+        return this.http.get<any>(this.url + '/GetPaginatedMoviesListByGenre?genre=' + genre + '&pageNumber=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );;

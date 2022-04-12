@@ -11,9 +11,9 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var MyAllowSpecificOrigins = "AllowAll";
-builder.Services.AddCors();
-
+builder.Services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+                                                        .AllowAnyMethod()
+                                                         .AllowAnyHeader()));
 builder.Services.AddDbContext<tmdbapiContext>(options =>
 
 options.UseSqlServer(builder.Configuration.GetConnectionString("tmdbapiContext")));
@@ -122,12 +122,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(options =>
-options.WithOrigins("http://localhost:56898")
-.AllowAnyMethod()
-.AllowAnyHeader()
-);
-
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
