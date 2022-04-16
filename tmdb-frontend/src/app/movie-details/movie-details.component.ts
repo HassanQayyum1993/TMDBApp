@@ -21,7 +21,7 @@ export class MovieDetailsComponent implements OnInit {
     private router: Router) { debugger; }
 
   ngOnInit(): void {
-    this.movieId = +this.route.snapshot.queryParams.movieId;
+    this.movieId = +this.route.snapshot.params.movieId;
 
     this._movieService.getMovieDetails(this.movieId).subscribe((response) => {
       debugger;
