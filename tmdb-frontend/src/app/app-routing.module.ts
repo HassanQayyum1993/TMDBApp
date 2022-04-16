@@ -16,7 +16,7 @@ const routes: Routes = [  {
       ),
 },
 {
-  path: "movieDetails",
+  path: "movieDetails/:movieId",
   loadChildren: () =>
       import("./movie-details/movie-details.module").then(
           (m) => m.MovieDetailsModule

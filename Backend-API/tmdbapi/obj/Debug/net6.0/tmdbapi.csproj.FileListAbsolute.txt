@@ -536,14 +536,3 @@ D:\TheMovieDatabaseApplication\Backend-API\tmdbapi\tmdbapi\obj\Debug\net6.0\refi
 D:\TheMovieDatabaseApplication\Backend-API\tmdbapi\tmdbapi\obj\Debug\net6.0\tmdbapi.pdb
 D:\TheMovieDatabaseApplication\Backend-API\tmdbapi\tmdbapi\obj\Debug\net6.0\tmdbapi.genruntimeconfig.cache
 D:\TheMovieDatabaseApplication\Backend-API\tmdbapi\tmdbapi\obj\Debug\net6.0\ref\tmdbapi.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\tmdbapi.exe
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\tmdbapi.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\tmdbapi.pdb
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\Microsoft.OpenApi.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-D:\TMDBApp\Backend-API\tmdbapi\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

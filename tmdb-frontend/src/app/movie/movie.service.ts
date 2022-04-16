@@ -14,7 +14,7 @@ export class MovieService {
     constructor(private http: HttpClient) { }
 
     getMovieDetails(movieId: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetMovieDetails/' + movieId)
+        return this.http.get<any>(this.url + '/GetMovieDetails?movieId=' + movieId)
             .pipe(
                 catchError(this.handleError)
             );;

@@ -23,7 +23,7 @@
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-        <mat-row *matRowDef="let results; columns: displayedColumns;" (click)="goToMovieDetails(results.title)"
+        <mat-row *matRowDef="let results; columns: displayedColumns;" (click)="goToMovieDetails(results.id)"
             title="Click to view details" style="border-color: white;margin-top: 10px;">
         </mat-row>
     </mat-table>

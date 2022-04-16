@@ -1,1 +1,15 @@
-<p>movie-details works!</p>
+<div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="start start">
+
+    <div fxFlex=30% style="padding-top: 8px;">
+        <img width="50" height="75" [src]="posterPath" />
+        <mat-label><b>{{title}}</b></mat-label>
+    </div>
+    <div fxFlex=30% style="padding-top: 8px;">
+        <mat-label> {{genres}}</mat-label>
+    </div>
+</div>
+<div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="start start">
+    <div fxFlex=30% style="padding-top: 8px;">
+        <mat-label><b>Cast:</b> {{names}}</mat-label>
+    </div>
+</div>
