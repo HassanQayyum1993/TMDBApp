@@ -15,7 +15,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatRadioModule } from '@angular/material/radio';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,15 +27,16 @@ import { MovieComponent } from './movie/movie.component';
 import { SearchMoviesComponent } from './movie/search-movies/search-movies.component';
 import { TopMoviesListComponent } from './movie/top-movies-list/top-movies-list.component';
 import { MovieService } from './movie/movie.service';
+import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MovieComponent,
-    SearchMoviesComponent,
-    TopMoviesListComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -55,14 +55,53 @@ import { MovieService } from './movie/movie.service';
     MatInputModule,
     MatTooltipModule,
     MatToolbarModule,
-    AppRoutingModule,
     MatCheckboxModule,
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule,
     CdkTableModule,
     MatPaginatorModule,
-    MatTabsModule
+    MatTabsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatTableModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatTableModule,
+    FormsModule
   ],
   providers: [MovieService],
   bootstrap: [AppComponent]

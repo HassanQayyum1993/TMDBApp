@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../movie.service';
 
 @Component({
@@ -8,10 +9,13 @@ import { MovieService } from '../movie.service';
 })
 export class TopMoviesListComponent implements OnInit {
 
-  pageNumber: number =1;
+  pageNumber: number = 1;
   topMoviesList: any;
-  displayedColumns = [ 'PosterImage', 'Title', 'ReleaseDate'];
-  constructor(private _movieService: MovieService) { }
+  displayedColumns = ['PosterImage', 'Title', 'ReleaseDate'];
+  constructor(private _movieService: MovieService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
@@ -19,11 +23,15 @@ export class TopMoviesListComponent implements OnInit {
     });
   }
 
-  handlePage(event)
-  {
-    this.pageNumber = event.pageIndex+1;
+  handlePage(event) {
+    this.pageNumber = event.pageIndex + 1;
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
       this.topMoviesList = response.topMoviesList;
     });
+  }
+
+  goToMovieDetails() {
+    //this.router.navigateByUrl(`/movieDetails`)
+    this.router.navigate(['../movieDetails'])
   }
 }

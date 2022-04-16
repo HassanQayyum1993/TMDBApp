@@ -17,7 +17,7 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <button mat-raised-button [disabled]="searchKeyWord == null"
+    <button mat-raised-button [disabled]="!searchKeyWord"
         style="margin-top: 1em; margin-left: 1.5em; background: darkred; color: white" (click)="refreshList()"
         mat-button aria-label="Continue">
         Continue

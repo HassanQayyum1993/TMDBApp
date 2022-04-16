@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MovieComponent implements OnInit {
   selectedTabIndex: number;
 
-  constructor() { }
+  constructor() {debugger; }
 
   ngOnInit(): void {
   }
