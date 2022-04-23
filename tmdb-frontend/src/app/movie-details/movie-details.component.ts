@@ -18,13 +18,12 @@ export class MovieDetailsComponent implements OnInit {
 
   constructor(private _movieService: MovieService,
     private route: ActivatedRoute,
-    private router: Router) { debugger; }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.movieId = +this.route.snapshot.params.movieId;
 
     this._movieService.getMovieDetails(this.movieId).subscribe((response) => {
-      debugger;
       this.names = response.movieCast.cast.map(function(item) {
         return item['name'];
       }).join(', ');

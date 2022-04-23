@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,6 +30,11 @@ import { MovieService } from './movie/movie.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { LoginComponent } from './login/login.component';
+import { httpInterceptor } from './Interceptor/httpInterceptor';
+import { AuthenticationService } from './authentication/authentication.service';
 
 @NgModule({
   declarations: [
@@ -101,9 +106,16 @@ import { CommonModule } from '@angular/common';
     MatPaginatorModule,
     MatCardModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule,
+    MatGridListModule
   ],
-  providers: [MovieService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AuthenticationService,
+    //AuthorizationCheck, 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../movie.service';
 
 @Component({
@@ -14,7 +15,9 @@ export class SearchMoviesComponent implements OnInit {
   displayedColumns = ['PosterImage', 'Title', 'ReleaseDate'];
   searchKeyWord: string;
   pageNumber: number = 1;
-  constructor(private _movieService: MovieService) { }
+  constructor(private _movieService: MovieService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this._movieService.GetMoviesGenreList().subscribe((response) => { this.genreList = response.genreList.genres });
@@ -36,5 +39,9 @@ export class SearchMoviesComponent implements OnInit {
   setGenreId(event)
   {
     this.genreId = event.value
+  }
+
+  goToMovieDetails(Id) {
+    this.router.navigateByUrl(`/movieDetails/${Id}`)
   }
 }

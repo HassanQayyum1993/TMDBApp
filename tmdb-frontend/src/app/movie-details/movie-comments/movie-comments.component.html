@@ -1,0 +1,64 @@
+<hr>
+<p style="font-size: 20px;">
+    <b>Comments</b>
+</p>
+<div style="margin-top: 20px; margin-left: 20px;" fxLayout="row" fxLayoutAlign="start start">
+    <form [formGroup]="form">
+        <mat-form-field fxFlex style="width:1000px">
+            <mat-label>Add a comment...</mat-label>
+            <textarea formControlName="Value" Rows="1" name="Value" matInput type="text"
+                (focus)="goToLoginPage()"></textarea>
+            <!-- <textarea  [(ngModel)]="comment" Rows="1" name="Comment" matInput type="text"></textarea> -->
+            <!-- <input name="comment" [formControl]="comment" matInput type="text"> -->
+        </mat-form-field>
+    </form>
+    <div fxFlex style="margin-left: 20px;">
+        <!-- <button (click)="addComment()" mat-button [disabled]="form.invalid" aria-label="ADD">
+            Comment
+        </button> -->
+        <button mat-raised-button (click)="addComment()" [disabled]="form.invalid" aria-label="ADD"
+            style="background: blue; color: white">
+            Save
+        </button>
+    </div>
+</div>
+<mat-table style="width:70%;" #table [dataSource]="commentsList">
+
+    <ng-container matColumnDef="Value">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
+        <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm>
+            <table cellspacing="2" cellpadding="2" width="100%">
+                <tr>
+                    <td>
+                        <b>{{results.createdBy}}   </b><label style="font-size: smaller;">{{results.updatedOn}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{results.value}}
+                    </td>
+                </tr>
+            </table>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Action">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
+        <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm>
+            <button mat-button style="color: #81151e;background: lightgray;" title="Edit this Comment">
+                Edit
+            </button>
+            &nbsp;&nbsp;
+            <button mat-button style="color:#ffffff;background:#c21111; margin-right: 10px;" title="Delete this Comment"
+                (click)="deleteComment(results.id)">
+                Delete
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let results; columns: displayedColumns;" style="border-color: white;margin-top: 10px;">
+    </mat-row>
+</mat-table>

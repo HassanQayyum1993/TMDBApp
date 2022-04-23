@@ -32,7 +32,5 @@ export class TopMoviesListComponent implements OnInit {
 
   goToMovieDetails(Id) {
     this.router.navigateByUrl(`/movieDetails/${Id}`)
-    //this.router.navigate(['../movieDetails/:&{}}'])
-    //this.router.navigate(['../movieDetails'],{queryParams:{movieId:Id}});
   }
 }

@@ -22,25 +22,23 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MovieDetailsComponent } from './movie-details.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MovieService } from 'app/movie/movie.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MovieCommentsComponent } from './movie-comments/movie-comments.component';
 import { MatGridListModule } from '@angular/material/grid-list'; 
-import { CommentService } from './movie-comments/movie-comments.service';
+import { LoginComponent } from './login.component';
+import { AuthenticationService } from 'app/authentication/authentication.service';
 const routes: Routes = [
   {
       path     : "",
-      component: MovieDetailsComponent,
+      component: LoginComponent,
   }
 ]
 
 @NgModule({
   declarations: [
-    MovieDetailsComponent,
-    MovieCommentsComponent
+    LoginComponent
   ],
   imports: [
         RouterModule.forChild(routes),
@@ -89,6 +87,6 @@ const routes: Routes = [
         MatCardModule,
         MatTableModule
   ],
-  providers: [MovieService, CommentService]
+  providers: [AuthenticationService]
 })
-export class MovieDetailsModule { }
+export class LoginModule { }

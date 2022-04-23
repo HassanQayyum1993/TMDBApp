@@ -1,15 +1,31 @@
-<div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="start start">
+<div style="margin-left: 25px;margin-top: 30px;">
+    <div fxLayout="row" fxLayoutAlign="start end">
 
-    <div fxFlex=30% style="padding-top: 8px;">
-        <img width="50" height="75" [src]="posterPath" />
-        <mat-label><b>{{title}}</b></mat-label>
+        <div fxFlex="15%">
+            <img width="200" height="300" [src]="posterPath" />
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+            <div fxFlex>
+                <mat-label style="font-size: 50px;"><b>{{title}}</b></mat-label>
+            </div>
+            <div fxFlex>
+                <mat-label> {{genres}}</mat-label>
+            </div>
+            <div fxFlex style="margin-top: 20px;">
+                <mat-label><b>Cast:</b> {{names}}</mat-label>
+            </div>
+        </div>
     </div>
-    <div fxFlex=30% style="padding-top: 8px;">
-        <mat-label> {{genres}}</mat-label>
-    </div>
-</div>
-<div class="input-row" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="start start">
-    <div fxFlex=30% style="padding-top: 8px;">
-        <mat-label><b>Cast:</b> {{names}}</mat-label>
-    </div>
+    <p style="font-size: 20px;">
+        <b>Image Gallery:</b>
+    </p>
+    <mat-grid-list cols="6" rowHeight="8:10">
+        <ng-container>
+            <mat-grid-tile *ngFor="let item of imageUrls">
+                <img style="margin-top: 30px;" width="200" height="300" [src]="item" />
+            </mat-grid-tile>
+        </ng-container>
+    </mat-grid-list>
+    <app-movie-comments>
+    </app-movie-comments>
 </div>

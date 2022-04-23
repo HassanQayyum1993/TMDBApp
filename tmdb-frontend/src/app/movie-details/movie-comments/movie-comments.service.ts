@@ -8,41 +8,37 @@ import { catchError } from 'rxjs/operators';
     providedIn: 'root'
 })
 
-export class MovieService {
-    url = 'https://localhost:7167/api/Movie';
+export class CommentService {
+    url = 'https://localhost:7167/api/Comment';
+   
 
     constructor(private http: HttpClient) { }
 
-    getMovieDetails(movieId: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetMovieDetails?movieId=' + movieId)
+    getCommentsByMovieId(movieId: number): Observable<any> {
+        return this.http.get<any>(this.url + '/GetCommentsByMovieId?movieId=' + movieId)
             .pipe(
                 catchError(this.handleError)
             );
     }
 
-    getPaginatedTopMoviesList(pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedTopMoviesList?pageNumber=' + pageNumber)
+
+
+    getCommentById(pageNumber: number): Observable<any> {
+        return this.http.get<any>(this.url + '/GetCommentById?id=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );
     }
 
-    GetPaginatedMoviesListWithSearch(searchKeyWord: string, genreId: number, pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedMoviesListWithSearch?searchKeyWord='+ searchKeyWord + '&genreId=' +  genreId + '&pageNumber=' + pageNumber)
+    postComment(sourceObj: any): Observable<any> {
+        return this.http.post<any>(this.url + `/PostComment`, JSON.stringify(sourceObj))
             .pipe(
                 catchError(this.handleError)
             );
     }
 
-    GetPaginatedMoviesListByGenre(genre: string, pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedMoviesListByGenre?genre=' + genre + '&pageNumber=' + pageNumber)
-            .pipe(
-                catchError(this.handleError)
-            );
-    }
-
-    GetMoviesGenreList(): Observable<any> {
-        return this.http.get<any>(this.url + '/GetMoviesGenreList')
+    deleteComment(commentId: number): Observable<any> {
+        return this.http.delete<any>(this.url + '/DeleteComment?id=' + commentId)
             .pipe(
                 catchError(this.handleError)
             );

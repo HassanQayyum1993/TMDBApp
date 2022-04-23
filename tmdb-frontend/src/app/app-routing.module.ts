@@ -21,6 +21,13 @@ const routes: Routes = [  {
       import("./movie-details/movie-details.module").then(
           (m) => m.MovieDetailsModule
       ),
+},
+{
+  path: "login/:movieId",
+  loadChildren: () =>
+      import("./login/login.module").then(
+          (m) => m.LoginModule
+      ),
 }
 ];
 
