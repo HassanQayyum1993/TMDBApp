@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl(`/movie`);
           }
           else {
-            this.router.navigateByUrl(`/movieDetails/${this.movieId}`);
+            this.router.navigateByUrl(`movie/movieDetails/${this.movieId}`);
           }
         },
         error => {

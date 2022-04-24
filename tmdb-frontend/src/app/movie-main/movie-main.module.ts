@@ -22,34 +22,39 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MovieDetailsComponent } from './movie-details.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MovieService } from 'app/movie/movie.service';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MovieCommentsComponent } from './movie-comments/movie-comments.component';
-import { MatGridListModule } from '@angular/material/grid-list'; 
-import { CommentService } from './movie-comments/movie-comments.service';
+import { MovieMainComponent } from './movie-main.component';
+import { MovieComponent } from './movie/movie.component';
+import { TopMoviesListComponent } from './movie/top-movies-list/top-movies-list.component';
+import { SearchMoviesComponent } from './movie/search-movies/search-movies.component';
+import { MovieService } from './movie/movie.service';
 const routes: Routes = [
   {
       path     : "",
-      component: MovieDetailsComponent,
-  }
+      component: MovieMainComponent,
+  },
+  {
+    path: "movieDetails/:movieId",
+    loadChildren: () =>
+        import("./movie-details/movie-details.module").then(
+            (m) => m.MovieDetailsModule
+        ),
+  },
 ]
 
 @NgModule({
   declarations: [
-    MovieDetailsComponent,
-    MovieCommentsComponent
+    MovieComponent,
+    MovieMainComponent,
+    TopMoviesListComponent,
+    SearchMoviesComponent
+
   ],
   imports: [
         RouterModule.forChild(routes),
-        FormsModule,
-        ReactiveFormsModule,
-        MatGridListModule,
-        FlexLayoutModule,
-        CommonModule,
         MatButtonModule,
+        CommonModule,
         MatCheckboxModule,
         MatDatepickerModule,
         MatFormFieldModule,
@@ -87,8 +92,9 @@ const routes: Routes = [
         MatSelectModule,
         MatPaginatorModule,
         MatCardModule,
-        MatTableModule
+        MatTableModule,
+        FormsModule
   ],
-  providers: [MovieService, CommentService]
+  providers: [MovieService]
 })
-export class MovieDetailsModule { }
+export class MovieMainModule { }

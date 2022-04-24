@@ -23,10 +23,6 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MovieComponent } from './movie/movie.component';
-import { SearchMoviesComponent } from './movie/search-movies/search-movies.component';
-import { TopMoviesListComponent } from './movie/top-movies-list/top-movies-list.component';
-import { MovieService } from './movie/movie.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
@@ -35,6 +31,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { LoginComponent } from './login/login.component';
 import { httpInterceptor } from './Interceptor/httpInterceptor';
 import { AuthenticationService } from './authentication/authentication.service';
+import { MovieMainComponent } from './movie-main/movie-main.component';
 
 @NgModule({
   declarations: [

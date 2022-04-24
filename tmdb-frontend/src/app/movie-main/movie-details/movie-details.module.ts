@@ -22,30 +22,34 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MovieDetailsComponent } from './movie-details.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MovieService } from 'app/movie/movie.service';
-import { MovieComponent } from './movie.component';
-import { SearchMoviesComponent } from './search-movies/search-movies.component';
-import { TopMoviesListComponent } from './top-movies-list/top-movies-list.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MovieCommentsComponent } from './movie-comments/movie-comments.component';
+import { MatGridListModule } from '@angular/material/grid-list'; 
+import { CommentService } from './movie-comments/movie-comments.service';
+import { MovieService } from '../movie/movie.service';
 const routes: Routes = [
   {
       path     : "",
-      component: MovieComponent,
+      component: MovieDetailsComponent,
   }
 ]
 
 @NgModule({
   declarations: [
-    MovieComponent,
-    TopMoviesListComponent,
-    SearchMoviesComponent
-
+    MovieDetailsComponent,
+    MovieCommentsComponent
   ],
   imports: [
         RouterModule.forChild(routes),
-        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatGridListModule,
+        FlexLayoutModule,
         CommonModule,
+        MatButtonModule,
         MatCheckboxModule,
         MatDatepickerModule,
         MatFormFieldModule,
@@ -83,9 +87,8 @@ const routes: Routes = [
         MatSelectModule,
         MatPaginatorModule,
         MatCardModule,
-        MatTableModule,
-        FormsModule
+        MatTableModule
   ],
-  providers: [MovieService]
+  providers: [MovieService, CommentService]
 })
-export class MovieModule { }
+export class MovieDetailsModule { }

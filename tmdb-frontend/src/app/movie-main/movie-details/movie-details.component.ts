@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MovieService } from 'app/movie/movie.service';
+import { AuthenticationService } from 'app/authentication/authentication.service';
+import { MovieService } from '../movie/movie.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -15,12 +16,23 @@ export class MovieDetailsComponent implements OnInit {
   imageUrls: any;
   names: any;
   posterPath: any;
+  userName: string
+  isLoggedIn = false;
+  token: string
 
-  constructor(private _movieService: MovieService,
+  constructor(private authenticationService: AuthenticationService,
+    private _movieService: MovieService,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('TokenInfo')) {
+      this.isLoggedIn = true;
+    }
+    if(localStorage.getItem('User')){
+      this.userName = localStorage.getItem('User');
+    }
+
     this.movieId = +this.route.snapshot.params.movieId;
     localStorage.setItem('MovieId', this.movieId.toString());
     this._movieService.getMovieDetails(this.movieId).subscribe((response) => {
@@ -36,5 +48,17 @@ export class MovieDetailsComponent implements OnInit {
 
       this.imageUrls = response.movieImageUrls;
     })
+  }
+
+  goToLogInPage() {
+    if (!localStorage.getItem('TokenInfo')) {
+      this.router.navigateByUrl(`/login/fromMovieComments/${this.movieId}`);
+    }
+  }
+
+  logOut() {
+    this.authenticationService.logout();
+    this.isLoggedIn = false;
+    this.userName='';
   }
 }

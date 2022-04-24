@@ -31,6 +31,6 @@ export class TopMoviesListComponent implements OnInit {
   }
 
   goToMovieDetails(Id) {
-    this.router.navigateByUrl(`/movieDetails/${Id}`)
+    this.router.navigateByUrl(`movie/movieDetails/${Id}`)
   }
 }

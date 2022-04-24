@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MovieService } from 'app/movie/movie.service';
 import { share } from 'rxjs/operators';
 import { MovieComment } from './movie-comments.model';
 import { CommentService } from './movie-comments.service';
@@ -23,6 +22,7 @@ export class MovieCommentsComponent implements OnInit {
   registeredUser: string;
   token: string;
   isEdit= false;
+  editedId=0;
 
   constructor(private _formBuilder: FormBuilder, private _commentService: CommentService, private route: ActivatedRoute,
     private router: Router) {
@@ -61,8 +61,10 @@ export class MovieCommentsComponent implements OnInit {
     })
   }
 
-  editComment()
+  editComment(id)
   {
+    debugger;
+    this.editedId = id;
     this.isEdit = true;
   }
 

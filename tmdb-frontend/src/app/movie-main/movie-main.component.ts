@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from './authentication/authentication.service';
+import { AuthenticationService } from 'app/authentication/authentication.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-movie-main',
+  templateUrl: './movie-main.component.html',
+  styleUrls: ['./movie-main.component.css']
 })
-export class AppComponent {
-  title = 'tmdb-frontend';
+export class MovieMainComponent implements OnInit {
+
   selectedTabIndex: number;
   userName: string
   isLoggedIn = false;
@@ -37,4 +37,5 @@ export class AppComponent {
     this.isLoggedIn = false;
     this.userName='';
   }
+
 }
