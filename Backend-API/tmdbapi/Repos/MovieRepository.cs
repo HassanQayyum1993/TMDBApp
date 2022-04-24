@@ -12,7 +12,7 @@ using System.Linq;
 namespace tmdbapi.Repos
 
 {
-    public class MovieRepository: IMovieRepository
+    public class MovieRepository : IMovieRepository
     {
         private readonly IMovieHelper _movieHelper;
 
@@ -27,7 +27,6 @@ namespace tmdbapi.Repos
 
         public async Task<ImageGallery> GetMovieImagePathsAsync(long movieId)
         {
-
             return await Task.FromResult(_movieHelper.GetMovieImages(movieId));
         }
 
@@ -41,7 +40,7 @@ namespace tmdbapi.Repos
             return await Task.FromResult(_movieHelper.GetTopMoviesList(pageNumber));
         }
 
-        public async Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord,long pageNumber)
+        public async Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, long pageNumber)
         {
             return await Task.FromResult(_movieHelper.GetPaginatedMoviesListWithSearch(searchKeyWord, pageNumber));
         }

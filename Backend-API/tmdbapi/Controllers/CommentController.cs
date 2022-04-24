@@ -24,19 +24,10 @@ namespace tmdbapi.Controllers
             _commentRepository = commentReposiotry;
         }
 
-        // GET: api/Comments
-        //[HttpGet]
-        //[Route("GetAllComments")]
-        //public async Task<ActionResult<IEnumerable<Comment>>> GetComment()
-        //{
-        //    return await _context.Comment.ToListAsync();
-        //}
-
         [HttpGet]
         [Route("GetCommentsByMovieId")]
         public async Task<ActionResult> GetCommentsByMovieId(int movieId)
         {
-            //return await _context.Comment.ToListAsync();
             return Ok(await _commentRepository.GetCommentsByMovieIdAsync(movieId));
         }
 
@@ -45,8 +36,6 @@ namespace tmdbapi.Controllers
         [Route("GetCommentById")]
         public async Task<ActionResult<Comment>> GetCommentById(int id)
         {
-            //var comment = await _context.Comment.FindAsync(id);
-
             var comment = await _commentRepository.GetCommentByIdAsync(id);
 
             if (comment == null)
@@ -69,23 +58,6 @@ namespace tmdbapi.Controllers
             }
 
             var result = await _commentRepository.PutCommentAsync(id, comment);
-            //_context.Entry(comment).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!CommentExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
             if (result == 0)
             {
                 return NotFound();
@@ -98,13 +70,11 @@ namespace tmdbapi.Controllers
         [HttpPost]
         [Authorize]
         [Route("PostComment")]
-        //[ActionName(nameof(PostComment))]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
-            //_context.Comment.Add(comment);
-            //await _context.SaveChangesAsync();
             comment.CreatedOn = DateTime.UtcNow;
             comment.CreatedBy = User.Identity.Name;
+            comment.UpdatedBy = User.Identity.Name;
             var result = await _commentRepository.PostCommentAsync(comment);
             return CreatedAtAction("PostComment", new { id = comment.Id }, comment);
         }
@@ -115,15 +85,12 @@ namespace tmdbapi.Controllers
         [Route("DeleteComment")]
         public async Task<IActionResult> DeleteComment(int id)
         {
-            //var comment = await _context.Comment.FindAsync(id);
 
             var comment = await _commentRepository.DeleteCommentAsync(id);
             if (comment == null)
             {
                 return NotFound();
             }
-            //_context.Comment.Remove(comment);
-            //await _context.SaveChangesAsync();
             return NoContent();
         }
     }

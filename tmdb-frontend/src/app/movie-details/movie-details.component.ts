@@ -22,7 +22,7 @@ export class MovieDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.movieId = +this.route.snapshot.params.movieId;
-
+    localStorage.setItem('MovieId', this.movieId.toString());
     this._movieService.getMovieDetails(this.movieId).subscribe((response) => {
       this.names = response.movieCast.cast.map(function(item) {
         return item['name'];

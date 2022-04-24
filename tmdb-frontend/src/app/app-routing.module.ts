@@ -23,7 +23,14 @@ const routes: Routes = [  {
       ),
 },
 {
-  path: "login/:movieId",
+  path: "login/:fromMovieComments/:movieId",
+  loadChildren: () =>
+      import("./login/login.module").then(
+          (m) => m.LoginModule
+      ),
+},
+{
+  path: "login/:fromMovieList",
   loadChildren: () =>
       import("./login/login.module").then(
           (m) => m.LoginModule

@@ -14,9 +14,6 @@ namespace tmdbapi.Repos
         }
         public async Task<IEnumerable<Comment>> GetCommentsByMovieIdAsync(int movieId)
         {
-            //var result = await _context.Comment.ToListAsync(); ;
-            //return await _context.Comment.Where(comment => comment.MovieId == movieId).ToListAsync();
-                    
             return await _context.Comment.FromSqlRaw($"SELECT Id, MovieId, Value, CreatedBy, CreatedOn, UpdatedBy, UpdatedOn FROM Comment WHERE MovieId={movieId} ORDER BY Id DESC")
                        .ToListAsync();
         }

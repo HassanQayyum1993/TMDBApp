@@ -8,8 +8,6 @@
             <mat-label>Add a comment...</mat-label>
             <textarea formControlName="Value" Rows="1" name="Value" matInput type="text"
                 (focus)="goToLoginPage()"></textarea>
-            <!-- <textarea  [(ngModel)]="comment" Rows="1" name="Comment" matInput type="text"></textarea> -->
-            <!-- <input name="comment" [formControl]="comment" matInput type="text"> -->
         </mat-form-field>
     </form>
     <div fxFlex style="margin-left: 20px;">
@@ -30,11 +28,15 @@
             <table cellspacing="2" cellpadding="2" width="100%">
                 <tr>
                     <td>
-                        <b>{{results.createdBy}}   </b><label style="font-size: smaller;">{{results.updatedOn}}</label>
+                        <b>{{results.updatedBy}} </b><label
+                            style="font-size: smaller;">{{moment(results.updatedOn).fromNow() }}</label>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td *ngIf="isEdit && ((results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && token)">
+                        <textarea [(ngModel)]="results.value" Rows="1" name="Value" matInput type="text"></textarea>
+                    </td>
+                    <td *ngIf="!isEdit">
                         {{results.value}}
                     </td>
                 </tr>
@@ -46,11 +48,19 @@
     <ng-container matColumnDef="Action">
         <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
         <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm>
-            <button mat-button style="color: #81151e;background: lightgray;" title="Edit this Comment">
+            <button *ngIf="!isEdit && ((results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && token)"
+                mat-button style="color: #81151e;background: lightgray;" title="Edit this Comment"
+                (click)="editComment(results.id)">
                 Edit
             </button>
+            <button *ngIf="isEdit && ((results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && token)"
+                mat-button style="color: #81151e;background: lightgray;" title="Edit this Comment"
+                (click)="updateComment(results.id, results)">
+                Save
+            </button>
             &nbsp;&nbsp;
-            <button mat-button style="color:#ffffff;background:#c21111; margin-right: 10px;" title="Delete this Comment"
+            <button *ngIf="(results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && token" mat-button
+                style="color:#ffffff;background:#c21111; margin-right: 10px;" title="Delete this Comment"
                 (click)="deleteComment(results.id)">
                 Delete
             </button>

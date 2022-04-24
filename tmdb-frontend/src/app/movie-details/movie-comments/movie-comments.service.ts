@@ -37,6 +37,21 @@ export class CommentService {
             );
     }
 
+    putComment(commentId: number, sourceObj: any): Observable<any> {
+        debugger;
+        return this.http.put<any>(this.url + `/PutComment?id=` + commentId, JSON.stringify(sourceObj))
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+    updateComment(sourceObj: any): Observable<any> {
+        return this.http.put<any>(this.url + `/PutComment`, JSON.stringify(sourceObj))
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
     deleteComment(commentId: number): Observable<any> {
         return this.http.delete<any>(this.url + '/DeleteComment?id=' + commentId)
             .pipe(

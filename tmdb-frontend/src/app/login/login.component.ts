@@ -10,14 +10,14 @@ import { AuthenticationService } from 'app/authentication/authentication.service
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-  // export class LoginComponent implements OnInit {
+// export class LoginComponent implements OnInit {
 
-  //   constructor() { }
+//   constructor() { }
 
-  //   ngOnInit(): void {
-  //   }
+//   ngOnInit(): void {
+//   }
 
-  // }
+// }
 
 // @Component({
 //   templateUrl: 'login.html'
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   error = '';
   movieId: number;
+  isFromMovieList = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,11 +46,16 @@ export class LoginComponent implements OnInit {
 
     // reset login status
     this.authenticationService.logout();
-
-    // get return url from route parameters or default to '/'
     debugger;
-    this.movieId = +this.route.snapshot.params.movieId;
+    // get return url from route parameters or default to '/'
+    if (this.route.snapshot.params.movieId) {
+      this.movieId = +this.route.snapshot.params.movieId;
+    }
+    if (this.route.snapshot.params.fromMovieList == "fromMovieList") {
+      this.isFromMovieList = true;
+    }
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
   }
 
   // convenience getter for easy access to form fields
@@ -68,7 +74,12 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigateByUrl(`/movieDetails/${this.movieId}`);
+          if (this.isFromMovieList == true) {
+            this.router.navigateByUrl(`/movie`);
+          }
+          else {
+            this.router.navigateByUrl(`/movieDetails/${this.movieId}`);
+          }
         },
         error => {
           this.error = error;
