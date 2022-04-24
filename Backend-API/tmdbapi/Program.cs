@@ -97,26 +97,6 @@ builder.Services.AddSwaggerGen(swagger =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
-
-//app.UseHttpsRedirection();
-
-
-//app.UseRouting();
-//app.UseCors(MyAllowSpecificOrigins);
-//app.UseAuthentication();
-//app.UseAuthorization();
-
-//app.MapControllers();
-
-//app.Run();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -127,12 +107,7 @@ app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
-//app.UseCors(MyAllowSpecificOrigins);
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
