@@ -15,8 +15,6 @@ namespace tmdbapi.Data
         {
         }
 
-        public DbSet<tmdbapi.Models.User> User { get; set; }
-
         public DbSet<tmdbapi.Models.Comment> Comment { get; set; }
     }
 }
