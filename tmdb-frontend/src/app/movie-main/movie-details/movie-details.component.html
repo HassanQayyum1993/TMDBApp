@@ -12,21 +12,21 @@
     <label>{{userName}}</label>
 </mat-toolbar>
 <div style="margin-left: 25px;margin-top: 30px;">
-    <div fxLayout="row" fxLayoutAlign="start end">
+    <div fxLayout="row" fxLayoutAlign="start start">
 
-        <div fxFlex="15%">
+        <div fxFlex.lt-md="50%" fxFlex.gt-sm="15%">
             <img width="200" height="300" [src]="posterPath" />
         </div>
-        <div fxLayout="column" fxLayoutAlign="start start">
-            <div fxFlex>
-                <mat-label style="font-size: 50px;"><b>{{title}}</b></mat-label>
-            </div>
-            <div fxFlex>
-                <mat-label> {{genres}}</mat-label>
-            </div>
-            <div fxFlex style="margin-top: 20px;">
-                <mat-label><b>Cast:</b> {{names}}</mat-label>
-            </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start start">
+        <div fxFlex>
+            <mat-label style="font-size: 50px;"><b>{{title}}</b></mat-label>
+        </div>
+        <div fxFlex>
+            <mat-label> {{genres}}</mat-label>
+        </div>
+        <div fxFlex style="margin-top: 20px;">
+            <mat-label><b>Cast:</b> {{names}}</mat-label>
         </div>
     </div>
     <p style="font-size: 20px;">

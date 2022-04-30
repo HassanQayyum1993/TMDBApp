@@ -4,9 +4,9 @@
     </div>
 </div>
 <div fxLayout="row" fxLayoutAlign="start start">
-    <mat-form-field style="margin-right: 25px;" appearance="outline" fxFlex>
+    <mat-form-field style="margin-right: 25px;" appearance="outline" fxFlex="25%">
         <mat-label>Search with movie name</mat-label>
-        <input [(ngModel)]="searchKeyWord" name="Search" matInput type="text">
+        <input required [(ngModel)]="searchKeyWord" name="Search" matInput type="text">
     </mat-form-field>
     <mat-form-field style="margin-right: 25px;" appearance="outline" fxFlex>
         <mat-label>Search by genre</mat-label>

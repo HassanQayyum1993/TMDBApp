@@ -33,11 +33,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td *ngIf="isEdit && (results.id == editedId) && ((results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && token)">
+                    <td *ngIf="isEdit && (results.id == editedId)">
                         <textarea [(ngModel)]="results.value" Rows="1" name="Value" matInput type="text"></textarea>
                     </td>
                     <td
-                        *ngIf="(!isEdit || (isEdit && (results.id != editedId))) && ((results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && token)">
+                        *ngIf="!isEdit || (isEdit && (results.id != editedId))">
                         {{results.value}}
                     </td>
                 </tr>
