@@ -20,33 +20,33 @@ namespace tmdbapi.Repos
         {
             _movieHelper = movieHelper;
         }
-        public async Task<MovieDetails> GetMovieDetailsAsync(long movieId)
+        public async Task<MovieDetails> GetMovieDetailsAsync(int movieId)
         {
             return await Task.FromResult(_movieHelper.GetMovieDetails(movieId));
         }
 
-        public async Task<ImageGallery> GetMovieImagePathsAsync(long movieId)
+        public async Task<ImageGallery> GetMovieImagePathsAsync(int movieId)
         {
             return await Task.FromResult(_movieHelper.GetMovieImages(movieId));
         }
 
-        public async Task<MovieCast> GetMovieCastAsync(long movieId)
+        public async Task<MovieCast> GetMovieCastAsync(int movieId)
         {
             return await Task.FromResult(_movieHelper.GetMovieCast(movieId));
         }
 
-        public async Task<MoviesList> GetTopMoviesListAsync(long pageNumber)
+        public async Task<MoviesList> GetTopMoviesListAsync(int pageNumber)
         {
             return await Task.FromResult(_movieHelper.GetTopMoviesList(pageNumber));
         }
 
-        public async Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, long pageNumber)
+        public async Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, int genreId, int pageNumber)
         {
-            return await Task.FromResult(_movieHelper.GetPaginatedMoviesListWithSearch(searchKeyWord, pageNumber));
+            return await Task.FromResult(_movieHelper.GetPaginatedMoviesListWithSearch(searchKeyWord, genreId, pageNumber));
         }
-        public async Task<MoviesList> GetMoviesListWithSearchAsync(string searchKeyWord)
+        public async Task<MoviesList> GetPaginatedMoviesListByGenreAsync(int genreId, int pageNumber)
         {
-            return await Task.FromResult(_movieHelper.GetMoviesListWithSearch(searchKeyWord));
+            return await Task.FromResult(_movieHelper.GetPaginatedMoviesListByGenre(genreId, pageNumber));
         }
         public async Task<GenresList> GetMoviesGenreListAsync()
         {

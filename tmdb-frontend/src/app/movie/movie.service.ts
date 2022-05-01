@@ -34,8 +34,8 @@ export class MovieService {
             );
     }
 
-    GetPaginatedMoviesListByGenre(genre: string, pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedMoviesListByGenre?genre=' + genre + '&pageNumber=' + pageNumber)
+    GetPaginatedMoviesListByGenre(genreId: number, pageNumber: number): Observable<any> {
+        return this.http.get<any>(this.url + '/GetPaginatedMoviesListByGenre?genreId=' + genreId + '&pageNumber=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );

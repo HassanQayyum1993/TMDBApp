@@ -31,7 +31,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { LoginComponent } from './login/login.component';
 import { httpInterceptor } from './Interceptor/httpInterceptor';
 import { AuthenticationService } from './authentication/authentication.service';
-import { MovieMainComponent } from './movie-main/movie-main.component';
 
 @NgModule({
   declarations: [

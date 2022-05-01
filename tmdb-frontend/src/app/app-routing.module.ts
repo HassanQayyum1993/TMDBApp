@@ -11,10 +11,17 @@ const routes: Routes = [  {
 {
   path: "movie",
   loadChildren: () =>
-      import("./movie-main/movie-main.module").then(
-          (m) => m.MovieMainModule
+      import("./movie/movie.module").then(
+          (m) => m.MovieModule
       ),
 },
+  {
+    path: "movie/movieDetails/:movieId",
+    loadChildren: () =>
+        import("./movie-details/movie-details.module").then(
+            (m) => m.MovieDetailsModule
+        ),
+  },
 {
   path: "login/:fromMovieComments/:movieId",
   loadChildren: () =>

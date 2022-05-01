@@ -30,15 +30,13 @@ namespace tmdbapi.Repos
 
             return apiResponse;
         }
-
-        public MovieDetails GetMovieDetails(long movieId)
+        public MovieDetails GetMovieDetails(int movieId)
         {
             string requestURL = "https://api.themoviedb.org/3/movie/" + movieId + "?" + this.apiKey;
             string apiResponse = this.Get(requestURL);
             var resultObj = JsonSerializer.Deserialize<MovieDetails>(apiResponse);
             return resultObj;
         }
-
         private List<string> CreatePosterImageUrls(ImageGallery images)
         {
             List<string> resultList = new List<string>();
@@ -49,7 +47,7 @@ namespace tmdbapi.Repos
             }
             return resultList;
         }
-        public ImageGallery GetMovieImages(long movieId)
+        public ImageGallery GetMovieImages(int movieId)
         {
             List<string> resultList = new List<string>();
             string requestURL = "https://api.themoviedb.org/3/movie/" + movieId + "/images" + "?" + this.apiKey;
@@ -57,8 +55,7 @@ namespace tmdbapi.Repos
             var resultObj = JsonSerializer.Deserialize<ImageGallery>(apiResponse);
             return resultObj;
         }
-
-        public MovieCast GetMovieCast(long movieId)
+        public MovieCast GetMovieCast(int movieId)
         {
             List<string> resultList = new List<string>();
             string requestURL = "https://api.themoviedb.org/3/movie/" + movieId + "/credits" + "?" + this.apiKey;
@@ -66,35 +63,30 @@ namespace tmdbapi.Repos
             var resultObj = JsonSerializer.Deserialize<MovieCast>(apiResponse);
             return resultObj;
         }
-
-        public MoviesList GetTopMoviesList(long pageNumber)
+        public MoviesList GetTopMoviesList(int pageNumber)
         {
             List<string> resultList = new List<string>();
-            string requestURL = "https://api.themoviedb.org/3/movie/top_rated" + "?" + this.apiKey + "&language=en-US&page=" + pageNumber;
+            string requestURL = "https://api.themoviedb.org/3/movie/top_rated" + "?" + this.apiKey + "&language=en-US&page=" + pageNumber;//  + "&include_adult=false";
             string apiResponse = this.Get(requestURL);
             var resultObj = JsonSerializer.Deserialize<MoviesList>(apiResponse);
             return resultObj;
         }
-        //       https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
-
-        public MoviesList GetPaginatedMoviesListWithSearch(string searchKeyWord, long pageNumber)
+        public MoviesList GetPaginatedMoviesListWithSearch(string searchKeyWord, int genreId, int pageNumber)
         {
             List<string> resultList = new List<string>();
-            string requestURL = "https://api.themoviedb.org/3/search/movie" + "?" + this.apiKey + "&language=en-US&query="+ searchKeyWord + "&page=" + pageNumber + "&include_adult=false";
+            string requestURL = "https://api.themoviedb.org/3/search/movie" + "?" + this.apiKey + "&language=en-US&query=" + searchKeyWord + "&with_genres=" + genreId + "&page=" + pageNumber + "&include_adult=false";
             string apiResponse = this.Get(requestURL);
             var resultObj = JsonSerializer.Deserialize<MoviesList>(apiResponse);
             return resultObj;
         }
-        public MoviesList GetMoviesListWithSearch(string searchKeyWord)
+        public MoviesList GetPaginatedMoviesListByGenre(int genreId, int pageNumber)
         {
             List<string> resultList = new List<string>();
-            string requestURL = "https://api.themoviedb.org/3/search/movie" + "?" + this.apiKey + "&language=en-US&query=" + searchKeyWord + "&include_adult=false";
+            string requestURL = "https://api.themoviedb.org/3/discover/movie" + "?" + this.apiKey + "&language=en-US&with_genres=" + genreId + "&page=" + pageNumber + "&include_adult=false";
             string apiResponse = this.Get(requestURL);
             var resultObj = JsonSerializer.Deserialize<MoviesList>(apiResponse);
             return resultObj;
         }
-
-
         public GenresList GetMoviesGenreList()
         {
             List<string> resultList = new List<string>();

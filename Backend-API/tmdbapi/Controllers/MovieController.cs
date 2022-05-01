@@ -21,7 +21,7 @@ namespace tmdbapi.Controllers
         }
 
         [HttpGet("GetMovieDetails")]
-        public async Task<IActionResult> GetMovieDetails(long movieId)
+        public async Task<IActionResult> GetMovieDetails(int movieId)
         {
                 var movieDetails = await _movieRepository.GetMovieDetailsAsync(movieId);
                 movieDetails.poster_path = "http://image.tmdb.org/t/p/w500" + movieDetails.poster_path;
@@ -44,7 +44,7 @@ namespace tmdbapi.Controllers
         [HttpGet("GetPaginatedMoviesListWithSearch")]
         public async Task<IActionResult> GetPaginatedMoviesListWithSearch(string searchKeyWord, int genreId,  int pageNumber)
         {
-            var moviesList = await _movieRepository.GetPaginatedMoviesListWithSearchAsync(searchKeyWord, pageNumber);
+            var moviesList = await _movieRepository.GetPaginatedMoviesListWithSearchAsync(searchKeyWord, genreId, pageNumber);
             moviesList.results = moviesList.results.Where(c => c.title.ToUpper().Contains(searchKeyWord.ToUpper())).ToList();
             if (genreId > 0)
             {
@@ -55,12 +55,10 @@ namespace tmdbapi.Controllers
         }
 
         [HttpGet("GetPaginatedMoviesListByGenre")]
-        public async Task<IActionResult> GetPaginatedMoviesListByGenre(string genre, int pageNumber)
+        public async Task<IActionResult> GetPaginatedMoviesListByGenre(int genreId, int pageNumber)
         {
-            var genresList = await _movieRepository.GetMoviesGenreListAsync();
-            var genreId = genresList.genres.Where(c => c.name.Contains(genre)).ToList()[0].id;
-            var moviesList = await _movieRepository.GetPaginatedMoviesListWithSearchAsync(genre, pageNumber);
-            moviesList.results = moviesList.results.Where(c => c.genre_ids.Contains(genreId)).ToList();// || c.Country == "SE")
+            var moviesList = await _movieRepository.GetPaginatedMoviesListByGenreAsync(genreId, pageNumber);
+            moviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
             return new JsonResult(new { MoviesList = moviesList });
         }
 

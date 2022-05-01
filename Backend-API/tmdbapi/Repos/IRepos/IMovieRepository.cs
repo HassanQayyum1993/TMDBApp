@@ -4,12 +4,12 @@ namespace tmdbapi.Repos.IRepos
 {
     public interface IMovieRepository
     {
-        Task<MovieDetails> GetMovieDetailsAsync(long movieId);
-        Task<ImageGallery> GetMovieImagePathsAsync(long movieId);
-        Task<MovieCast> GetMovieCastAsync(long movieId);
-        Task<MoviesList> GetTopMoviesListAsync(long pageNumber);
-        Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, long pageNumber);
-        Task<MoviesList> GetMoviesListWithSearchAsync(string searchKeyWord);
+        Task<MovieDetails> GetMovieDetailsAsync(int movieId);
+        Task<ImageGallery> GetMovieImagePathsAsync(int movieId);
+        Task<MovieCast> GetMovieCastAsync(int movieId);
+        Task<MoviesList> GetTopMoviesListAsync(int pageNumber);
+        Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, int genreId, int pageNumber);
+        Task<MoviesList> GetPaginatedMoviesListByGenreAsync(int genreId, int pageNumber);
         Task<GenresList> GetMoviesGenreListAsync();
     }
 }

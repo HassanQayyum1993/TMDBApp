@@ -61,4 +61,9 @@ export class MovieDetailsComponent implements OnInit {
     this.isLoggedIn = false;
     this.userName='';
   }
+
+  goToMovieList()
+  {
+    this.router.navigateByUrl(`/movie`);
+  }
 }

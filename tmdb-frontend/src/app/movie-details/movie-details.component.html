@@ -1,5 +1,10 @@
 <mat-toolbar class="app-toolbar">
-    <span>The Movie Database</span>
+    <span><b>The Movie Database</b></span>
+    <button
+        mat-button style="margin-left:80px; color: #81151e;background: lightgray;" title="Go to home page"
+        (click)="goToMovieList()">
+        Home
+    </button>
     <span class="example-spacer"></span>
     <button (click)="goToLogInPage()" *ngIf="!isLoggedIn" mat-button style="color: #81151e;background: lightgray;"
         title="Login">

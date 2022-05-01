@@ -1,3 +1,6 @@
 .mat-raised-button[disabled] {
    background-color: green;
 }
+.mat-row{
+   cursor: pointer;    
+   }

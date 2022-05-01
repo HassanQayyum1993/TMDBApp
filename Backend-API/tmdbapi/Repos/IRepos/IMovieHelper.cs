@@ -4,12 +4,12 @@ namespace tmdbapi.Repos.IRepos
 {
     public interface IMovieHelper
     {
-        MovieDetails GetMovieDetails(long movieId);
-        ImageGallery GetMovieImages(long movieId);
-        MovieCast GetMovieCast(long movieId);
-        MoviesList GetTopMoviesList(long pageNumber);
-        MoviesList GetPaginatedMoviesListWithSearch(string searchKeyWord,long pageNumber);
-        MoviesList GetMoviesListWithSearch(string searchKeyWord);
+        MovieDetails GetMovieDetails(int movieId);
+        ImageGallery GetMovieImages(int movieId);
+        MovieCast GetMovieCast(int movieId);
+        MoviesList GetTopMoviesList(int pageNumber);
+        MoviesList GetPaginatedMoviesListWithSearch(string searchKeyWord, int genreId, int pageNumber);
+        MoviesList GetPaginatedMoviesListByGenre(int genreId, int pageNumber);
         GenresList GetMoviesGenreList();
     }
 }

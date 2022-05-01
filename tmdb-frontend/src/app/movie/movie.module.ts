@@ -24,32 +24,22 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MovieMainComponent } from './movie-main.component';
-import { MovieComponent } from './movie/movie.component';
-import { TopMoviesListComponent } from './movie/top-movies-list/top-movies-list.component';
-import { SearchMoviesComponent } from './movie/search-movies/search-movies.component';
-import { MovieService } from './movie/movie.service';
+import { MovieComponent } from './movie.component';
+import { TopMoviesListComponent } from './top-movies-list/top-movies-list.component';
+import { SearchMoviesComponent } from './search-movies/search-movies.component';
+import { MovieService } from './movie.service';
 const routes: Routes = [
   {
       path     : "",
-      component: MovieMainComponent,
-  },
-  {
-    path: "movieDetails/:movieId",
-    loadChildren: () =>
-        import("./movie-details/movie-details.module").then(
-            (m) => m.MovieDetailsModule
-        ),
-  },
+      component: MovieComponent,
+  }
 ]
 
 @NgModule({
   declarations: [
     MovieComponent,
-    MovieMainComponent,
     TopMoviesListComponent,
     SearchMoviesComponent
-
   ],
   imports: [
         RouterModule.forChild(routes),
@@ -97,4 +87,4 @@ const routes: Routes = [
   ],
   providers: [MovieService]
 })
-export class MovieMainModule { }
+export class MovieModule { }
