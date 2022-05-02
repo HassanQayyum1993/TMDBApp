@@ -29,7 +29,6 @@ export class MovieCommentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
     this.registeredUser = localStorage.getItem('User');
     this.token = localStorage.getItem('TokenInfo')
     this.comment = new MovieComment([]);
@@ -63,7 +62,6 @@ export class MovieCommentsComponent implements OnInit {
 
   editComment(id)
   {
-    debugger;
     this.editedId = id;
     this.isEdit = true;
   }

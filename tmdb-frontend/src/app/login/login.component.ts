@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
 
     // reset login status
     this.authenticationService.logout();
-    debugger;
     // get return url from route parameters or default to '/'
     if (this.route.snapshot.params.movieId) {
       this.movieId = +this.route.snapshot.params.movieId;

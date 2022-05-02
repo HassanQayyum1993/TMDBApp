@@ -24,7 +24,6 @@ export class SearchMoviesComponent implements OnInit {
   }
 
   refreshList() {
-    debugger;
     if (this.searchKeyWord != null && this.searchKeyWord != "") {
       this._movieService.GetPaginatedMoviesListWithSearch(this.searchKeyWord, this.genreId, this.pageNumber).subscribe((response) => {
         this.moviesList = response.moviesList;

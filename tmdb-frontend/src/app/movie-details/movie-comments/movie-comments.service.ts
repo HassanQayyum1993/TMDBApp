@@ -38,7 +38,6 @@ export class CommentService {
     }
 
     putComment(commentId: number, sourceObj: any): Observable<any> {
-        debugger;
         return this.http.put<any>(this.url + `/PutComment?id=` + commentId, JSON.stringify(sourceObj))
             .pipe(
                 catchError(this.handleError)

@@ -66,7 +66,7 @@ namespace tmdbapi.Repos
         public MoviesList GetTopMoviesList(int pageNumber)
         {
             List<string> resultList = new List<string>();
-            string requestURL = "https://api.themoviedb.org/3/movie/top_rated" + "?" + this.apiKey + "&language=en-US&page=" + pageNumber;//  + "&include_adult=false";
+            string requestURL = "https://api.themoviedb.org/3/movie/top_rated" + "?" + this.apiKey + "&language=en-US&page=" + pageNumber;
             string apiResponse = this.Get(requestURL);
             var resultObj = JsonSerializer.Deserialize<MoviesList>(apiResponse);
             return resultObj;
