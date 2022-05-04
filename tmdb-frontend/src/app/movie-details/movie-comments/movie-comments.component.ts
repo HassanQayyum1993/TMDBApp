@@ -21,8 +21,8 @@ export class MovieCommentsComponent implements OnInit {
   displayedColumns = ['Value', 'Action'];
   registeredUser: string;
   token: string;
-  isEdit= false;
-  editedId=0;
+  isEdit = false;
+  editedId = 0;
 
   constructor(private _formBuilder: FormBuilder, private _commentService: CommentService, private route: ActivatedRoute,
     private router: Router) {
@@ -53,31 +53,32 @@ export class MovieCommentsComponent implements OnInit {
     }
   }
 
-  addComment() {
+  addComment(el) {
+    
     this._commentService.postComment(this.form.getRawValue()).subscribe((res) => {
-      this.form.patchValue( {'Value':null} );
+      this.form.patchValue({ 'Value': null });
       this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start'});
     })
+
   }
 
-  editComment(id)
-  {
+  editComment(id) {
     this.editedId = id;
     this.isEdit = true;
   }
 
-  updateComment(commentId, comment)
-  {
+  updateComment(commentId, comment) {
     this._commentService.putComment(commentId, comment).subscribe((res) => {
       this.isEdit = false;
       this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
     })
   }
 
-  deleteComment(commentId)
-  {
+  deleteComment(commentId) {
     this._commentService.deleteComment(commentId).subscribe((res) => {
       this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
     })
   }
+  
 }

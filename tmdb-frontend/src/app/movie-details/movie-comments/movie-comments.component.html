@@ -14,12 +14,13 @@
         <!-- <button (click)="addComment()" mat-button [disabled]="form.invalid" aria-label="ADD">
             Comment
         </button> -->
-        <button mat-raised-button (click)="addComment()" [disabled]="form.invalid" aria-label="ADD"
+        <button mat-raised-button (click)="addComment(target)" [disabled]="form.invalid" aria-label="ADD"
             style="background: blue; color: white">
             Save
         </button>
     </div>
 </div>
+<div #target class="scroll">
 <mat-table style="width:70%;" #table [dataSource]="commentsList">
 
     <ng-container matColumnDef="Value">
@@ -28,8 +29,10 @@
             <table cellspacing="2" cellpadding="2" width="100%">
                 <tr>
                     <td>
-                        <b>{{results.updatedBy}} </b><label
-                            style="font-size: smaller;">{{moment(results.updatedOn).fromNow() }}</label>
+                        <b>{{results.updatedBy}} </b>
+                        <label
+                            style="font-size: smaller;">{{moment(results.updatedOn).fromNow() }}
+                        </label>
                     </td>
                 </tr>
                 <tr>
@@ -87,3 +90,4 @@
     <mat-row *matRowDef="let results; columns: displayedColumns;" style="border-color: white;margin-top: 10px;">
     </mat-row>
 </mat-table>
+</div>
