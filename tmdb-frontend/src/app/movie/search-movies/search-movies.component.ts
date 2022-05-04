@@ -30,9 +30,11 @@ export class SearchMoviesComponent implements OnInit {
       })
     }
     else {
-      this._movieService.GetPaginatedMoviesListByGenre(this.genreId, this.pageNumber).subscribe((response) => {
-        this.moviesList = response.moviesList;
-      })
+      if (this.genreId != 0 && this.genreId != null) {
+        this._movieService.GetPaginatedMoviesListByGenre(this.genreId, this.pageNumber).subscribe((response) => {
+          this.moviesList = response.moviesList;
+        })
+      }
     }
   }
 
@@ -43,11 +45,8 @@ export class SearchMoviesComponent implements OnInit {
 
   setGenreId(event) {
     this.genreId = event.value;
-    if (this.genreId != 0 && this.genreId != null) {
-      this.refreshList();
-    }
-    if(this.moviesList && (this.genreId == 0 || this.genreId == null))
-    {
+    this.refreshList();
+    if (this.moviesList && (this.genreId == 0 || this.genreId == null)) {
       this.moviesList.total_results = 0;
       this.moviesList.results = [];
     }
