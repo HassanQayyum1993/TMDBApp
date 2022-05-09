@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 
 export class MovieService {
-    url = 'https://localhost:7167/api/Movie';
+    url = 'https://localhost:44355/api/Movie';
 
     constructor(private http: HttpClient) { }
 

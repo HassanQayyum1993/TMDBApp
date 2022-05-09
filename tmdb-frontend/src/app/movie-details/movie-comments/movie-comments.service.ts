@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 
 export class CommentService {
-    url = 'https://localhost:7167/api/Comment';
+    url = 'https://localhost:44355/api/Comment';
    
 
     constructor(private http: HttpClient) { }

@@ -28,7 +28,15 @@ namespace tmdbapi.Controllers
         [Route("GetCommentsByMovieId")]
         public async Task<ActionResult> GetCommentsByMovieId(int movieId)
         {
-            return Ok(await _commentRepository.GetCommentsByMovieIdAsync(movieId));
+            //try
+            //{
+                return Ok(await _commentRepository.GetCommentsByMovieIdAsync(movieId));
+            //}
+            //catch 
+            //{
+                //return Ok()
+                //As logging is not in scope of the project, so we can implement logging in future.
+            //}
         }
 
         // GET: api/Comments/5
@@ -72,7 +80,8 @@ namespace tmdbapi.Controllers
         [Route("PostComment")]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
-            comment.CreatedOn = DateTime.UtcNow;
+            comment.CreatedOn = DateTime.Now;
+            comment.UpdatedOn = DateTime.Now;
             comment.CreatedBy = User.Identity.Name;
             comment.UpdatedBy = User.Identity.Name;
             var result = await _commentRepository.PostCommentAsync(comment);
