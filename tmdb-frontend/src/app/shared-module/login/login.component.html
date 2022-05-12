@@ -1,0 +1,49 @@
+<mat-toolbar matDialogTitle class="mat-accent" style="margin-bottom:20px">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="title dialog-title">LOGIN TO YOUR ACCOUNT</span>
+        <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div mat-dialog-content class="p-24 pb-0 m-0">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" fxLayout="column">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>UserName</mat-label>
+            <input name="username" formControlName="username" matInput required type="text" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && formData.username.errors }">
+            <!-- <div *ngIf="submitted && formData.username.errors" class="invalid-feedback">
+                <div *ngIf="formData.username.errors.required">Username is required</div>
+            </div> -->
+        </mat-form-field>
+        <!-- <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && formData.password.errors }" />
+            <div *ngIf="submitted && formData.password.errors" class="invalid-feedback">
+                <div *ngIf="formData.password.errors.required">Password is required</div>
+            </div>
+        </div> -->
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Password</mat-label>
+            <input name="password" formControlName="password" matInput required type="password" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && formData.password.errors }">
+            <!-- <div *ngIf="submitted && formData.password.errors" class="invalid-feedback">
+                <div *ngIf="formData.password.errors.required">Password is required</div>
+            </div> -->
+        </mat-form-field>
+        <!-- <div class="form-group">
+            <button [disabled]="submitClick" class="btn btn-primary">Login</button>
+        </div> -->
+        <div fxFlex>
+            <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN"
+                [disabled]="loginForm.invalid" style="text-align: -webkit-center">
+                <span *ngIf="!isLoading">LOGIN</span>
+                <div class="pt-8 pb-8" *ngIf="isLoading">
+                    <mat-progress-spinner diameter="25" mode="indeterminate"></mat-progress-spinner>
+                </div>
+            </button>
+            <!-- <div *ngIf="error" class="alert alert-danger"></div> -->
+        </div>
+    </form>
+</div>

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MovieService } from '../movie.service';
+import { MovieService } from 'app/services/movie.service';
 
 @Component({
   selector: 'app-top-movies-list',
   templateUrl: './top-movies-list.component.html',
-  styleUrls: ['./top-movies-list.component.css']
+  styleUrls: ['./top-movies-list.component.scss']
 })
 export class TopMoviesListComponent implements OnInit {
 

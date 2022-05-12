@@ -4,6 +4,7 @@ namespace tmdbapi.Repos.IRepos
 {
     public interface IMovieHelper
     {
+        string Get(string requestURL);
         MovieDetails GetMovieDetails(int movieId);
         ImageGallery GetMovieImages(int movieId);
         MovieCast GetMovieCast(int movieId);

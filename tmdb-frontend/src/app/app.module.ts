@@ -28,9 +28,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { LoginComponent } from './login/login.component';
 import { httpInterceptor } from './Interceptor/httpInterceptor';
-import { AuthenticationService } from './authentication/authentication.service';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [

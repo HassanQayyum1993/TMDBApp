@@ -3,12 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AuthenticationService } from 'app/authentication/authentication.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { AuthenticationService } from 'app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 // export class LoginComponent implements OnInit {
 
@@ -31,12 +32,14 @@ export class LoginComponent implements OnInit {
   error = '';
   movieId: number;
   isFromMovieList = false;
+  isLoading=false;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    public matDialogRef: MatDialogRef<LoginComponent>,) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -61,6 +64,7 @@ export class LoginComponent implements OnInit {
   get formData() { return this.loginForm.controls; }
 
   onLogin() {
+    this.isLoading=true;
     this.submitted = true;
 
     // stop here if form is invalid
@@ -73,12 +77,14 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          if (this.isFromMovieList == true) {
-            this.router.navigateByUrl(`/movie`);
-          }
-          else {
-            this.router.navigateByUrl(`movie/movieDetails/${this.movieId}`);
-          }
+          this.isLoading=false;
+          this.matDialogRef.close("success");
+          // if (this.isFromMovieList == true) {
+          //   this.router.navigateByUrl(`/movie`);
+          // }
+          // else {
+          //   this.router.navigateByUrl(`movie/movieDetails/${this.movieId}`);
+          // }
         },
         error => {
           this.error = error;

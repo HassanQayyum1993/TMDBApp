@@ -1,16 +1,4 @@
-<mat-toolbar class="app-toolbar">
-    <span><b>The Movie Database</b></span>
-    <span class="example-spacer"></span>
-    <button (click)="goToLogInPage()" *ngIf="!isLoggedIn" mat-button style="color: #81151e;background: lightgray;"
-        title="Login">
-        Login
-    </button>
-    <button *ngIf="isLoggedIn" mat-button style="color:#ffffff;background:#c21111; margin-right: 10px;" title="Logout"
-        (click)="logOut()">
-        Logout
-    </button>
-    <label>{{userName}}</label>
-</mat-toolbar>
+<main-toolbar [isFromDetail]="false"></main-toolbar>
 <mat-tab-group style="background: #ffffff; width:100%" [(selectedIndex)]="selectedTabIndex">
     <mat-tab label="Top Movies List">
         <div class="center p-24 pb-100">

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MovieService } from '../movie.service';
+import { MovieService } from 'app/services/movie.service';
 
 @Component({
   selector: 'app-search-movies',
   templateUrl: './search-movies.component.html',
-  styleUrls: ['./search-movies.component.css']
+  styleUrls: ['./search-movies.component.scss']
 })
 export class SearchMoviesComponent implements OnInit {
 

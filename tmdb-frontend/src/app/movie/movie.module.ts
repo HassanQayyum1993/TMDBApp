@@ -27,7 +27,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MovieComponent } from './movie.component';
 import { TopMoviesListComponent } from './top-movies-list/top-movies-list.component';
 import { SearchMoviesComponent } from './search-movies/search-movies.component';
-import { MovieService } from './movie.service';
+import { SharedModule } from 'app/shared-module/shared.module';
+import { MovieService } from 'app/services/movie.service';
 const routes: Routes = [
   {
       path     : "",
@@ -83,7 +84,8 @@ const routes: Routes = [
         MatPaginatorModule,
         MatCardModule,
         MatTableModule,
-        FormsModule
+        FormsModule,
+        SharedModule
   ],
   providers: [MovieService]
 })

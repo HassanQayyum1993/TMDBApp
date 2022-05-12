@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { share } from 'rxjs/operators';
 import { MovieComment } from './movie-comments.model';
-import { CommentService } from './movie-comments.service';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from 'app/shared-module/login/login.component';
+import { CommentService } from 'app/services/comments.service';
 
 @Component({
   selector: 'app-movie-comments',
   templateUrl: './movie-comments.component.html',
-  styleUrls: ['./movie-comments.component.css']
+  styleUrls: ['./movie-comments.component.scss']
 })
-export class MovieCommentsComponent implements OnInit {
+export class MovieCommentsComponent implements OnInit, OnChanges {
 
   moment: any = moment;
   form: FormGroup;
@@ -19,18 +21,24 @@ export class MovieCommentsComponent implements OnInit {
   commentsList: any;
   movieId: number;
   displayedColumns = ['Value', 'Action'];
-  registeredUser: string;
-  token: string;
+  //registeredUser: string;
+  //token: string;
   isEdit = false;
   editedId = 0;
 
-  constructor(private _formBuilder: FormBuilder, private _commentService: CommentService, private route: ActivatedRoute,
-    private router: Router) {
+  @Input() isLoggedIn:any;
+  @Input() registeredUser: any;
+
+  constructor(private _formBuilder: FormBuilder,
+     private _commentService: CommentService,
+      private route: ActivatedRoute,
+    private router: Router,
+    private _matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.registeredUser = localStorage.getItem('User');
-    this.token = localStorage.getItem('TokenInfo')
+    //this.registeredUser = localStorage.getItem('User');
+    //this.token = localStorage.getItem('TokenInfo')
     this.comment = new MovieComment([]);
     this.movieId = +this.route.snapshot.params.movieId;
     this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
@@ -47,9 +55,29 @@ export class MovieCommentsComponent implements OnInit {
     })
   }
 
+  ngOnChanges()
+  {
+    debugger;
+  }
+
   goToLoginPage() {
-    if (!localStorage.getItem('TokenInfo')) {
-      this.router.navigateByUrl(`/login/fromMovieComments/${this.movieId}`);
+    if (!this.isLoggedIn) {
+      //this.router.navigateByUrl(`/login/fromMovieList`);
+      let dialogRef;
+      dialogRef = this._matDialog.open(LoginComponent, {
+        width: '30%',
+        panelClass: 'login-form-dialog',
+        // data: {
+        //   action: 'new'
+        // },
+      });
+
+      dialogRef.afterClosed().subscribe((response) => {
+         if (response == "success") {
+           this.ngOnInit();
+         }
+
+      });
     }
   }
 

@@ -1,21 +1,4 @@
-<mat-toolbar class="app-toolbar">
-    <span><b>The Movie Database</b></span>
-    <button
-        mat-button style="margin-left:80px; color: #81151e;background: lightgray;" title="Go to home page"
-        (click)="goToMovieList()">
-        Home
-    </button>
-    <span class="example-spacer"></span>
-    <button (click)="goToLogInPage()" *ngIf="!isLoggedIn" mat-button style="color: #81151e;background: lightgray;"
-        title="Login">
-        Login
-    </button>
-    <button *ngIf="isLoggedIn" mat-button style="color:#ffffff;background:#c21111; margin-right: 10px;" title="Logout"
-        (click)="logOut()">
-        Logout
-    </button>
-    <label>{{userName}}</label>
-</mat-toolbar>
+<main-toolbar (loginEvent)="checkLoginStatus()" [isFromDetail]="true"></main-toolbar>
 <div style="margin-left: 25px;margin-top: 30px;">
     <div fxLayout="row" fxLayoutAlign="start start">
 
@@ -44,6 +27,6 @@
             </mat-grid-tile>
         </ng-container>
     </mat-grid-list>
-    <app-movie-comments>
+    <app-movie-comments [isLoggedIn]="isLoggedIn" [registeredUser]="userName">
     </app-movie-comments>
 </div>

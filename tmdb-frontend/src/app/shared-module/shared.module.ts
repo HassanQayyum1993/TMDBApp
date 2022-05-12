@@ -26,8 +26,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list'; 
-import { LoginComponent } from './login.component';
-import { AuthenticationService } from 'app/authentication/authentication.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import { LoginComponent } from './login/login.component';
+import { MainToolbarComponent } from './main-toolbar/main-toolbar.component';
+import { AuthenticationService } from 'app/services/authentication.service';
 const routes: Routes = [
   {
       path     : "",
@@ -37,10 +39,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    MainToolbarComponent
   ],
   imports: [
-        RouterModule.forChild(routes),
+        MatProgressSpinnerModule,
         FormsModule,
         ReactiveFormsModule,
         MatGridListModule,
@@ -86,6 +89,7 @@ const routes: Routes = [
         MatCardModule,
         MatTableModule
   ],
+  exports: [LoginComponent, MainToolbarComponent],
   providers: [AuthenticationService]
 })
-export class LoginModule { }
+export class SharedModule { }

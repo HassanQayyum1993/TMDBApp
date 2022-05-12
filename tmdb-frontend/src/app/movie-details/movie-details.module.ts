@@ -28,8 +28,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MovieCommentsComponent } from './movie-comments/movie-comments.component';
 import { MatGridListModule } from '@angular/material/grid-list'; 
-import { CommentService } from './movie-comments/movie-comments.service';
-import { MovieService } from '../movie/movie.service';
+import { SharedModule } from 'app/shared-module/shared.module';
+import { MovieService } from 'app/services/movie.service';
+import { CommentService } from 'app/services/comments.service';
 const routes: Routes = [
   {
       path     : "",
@@ -87,7 +88,8 @@ const routes: Routes = [
         MatSelectModule,
         MatPaginatorModule,
         MatCardModule,
-        MatTableModule
+        MatTableModule,
+        SharedModule
   ],
   providers: [MovieService, CommentService]
 })
