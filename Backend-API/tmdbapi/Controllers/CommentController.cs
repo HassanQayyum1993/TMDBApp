@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using tmdbapi.Auth;
 using tmdbapi.Data;
 using tmdbapi.Models;
 using tmdbapi.Repos.IRepos;
@@ -80,12 +81,23 @@ namespace tmdbapi.Controllers
         [Route("PostComment")]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
+            ObjectResult objResult = null;
             comment.CreatedOn = DateTime.Now;
             comment.UpdatedOn = DateTime.Now;
             comment.CreatedBy = User.Identity.Name;
             comment.UpdatedBy = User.Identity.Name;
             var result = await _commentRepository.PostCommentAsync(comment);
-            return CreatedAtAction("PostComment", new { id = comment.Id }, comment);
+            //return CreatedAtAction("PostComment", new { id = comment.Id }, comment);
+            result = 0;
+                if (result==1)
+                {
+                    objResult = Ok(new Response { Status = "Success", Message = "Comment added successfully!" });
+                }
+                else
+                {
+                    objResult = StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to add this comment!" });
+                }
+            return objResult;
         }
 
         // DELETE: api/Comments/5

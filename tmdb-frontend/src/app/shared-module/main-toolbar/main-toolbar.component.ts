@@ -37,17 +37,17 @@ export class MainToolbarComponent implements OnInit {
     private authenticationService: AuthenticationService,) { }
 
   ngOnInit() {
-    if (localStorage.getItem('TokenInfo')) {
+    if (window.sessionStorage.getItem('token-info')) {
       this.isLoggedIn = true;
     }
-    if (localStorage.getItem('User')) {
-      this.userName = localStorage.getItem('User');
+    if (window.sessionStorage.getItem('user-name')) {
+      this.userName = window.sessionStorage.getItem('user-name');
     }
   }
 
   // convenience getter for easy access to form fields
   goToLogInPage() {
-    if (!localStorage.getItem('TokenInfo')) {
+    if (!window.sessionStorage.getItem('token-info')) {
       //this.router.navigateByUrl(`/login/fromMovieList`);
       let dialogRef;
       dialogRef = this._matDialog.open(LoginComponent, {
@@ -61,7 +61,6 @@ export class MainToolbarComponent implements OnInit {
       dialogRef.afterClosed().subscribe((response) => {
          if (response == "success") {
            this.ngOnInit();
-           debugger;
            this.loginEvent.emit();
          }
 

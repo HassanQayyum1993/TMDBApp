@@ -7,8 +7,8 @@ export class httpInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, newRequest: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header to request
 
-        //Get Token data from local storage
-        let tokenInfo = JSON.parse(localStorage.getItem('TokenInfo'));
+        //Get Token data from session storage
+        let tokenInfo = JSON.parse(window.sessionStorage.getItem('token-info'));
 
         if (tokenInfo && tokenInfo.token) {
             request = request.clone({

@@ -29,11 +29,11 @@ export class MovieDetailsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('TokenInfo')) {
+    if (window.sessionStorage.getItem('token-info')) {
       this.isLoggedIn = true;
     }
-    if (localStorage.getItem('User')) {
-      this.userName = localStorage.getItem('User');
+    if (window.sessionStorage.getItem('user-name')) {
+      this.userName = window.sessionStorage.getItem('user-name');
     }
 
     this.movieId = +this.route.snapshot.params.movieId;
@@ -55,16 +55,15 @@ export class MovieDetailsComponent implements OnInit {
  
   checkLoginStatus(): void
   {
-    debugger;
-    if (localStorage.getItem('TokenInfo')) {
+    if (window.sessionStorage.getItem('token-info')) {
       this.isLoggedIn = true;
     }
     else
     {
       this.isLoggedIn = false;
     }
-    if (localStorage.getItem('User')) {
-      this.userName = localStorage.getItem('User');
+    if (window.sessionStorage.getItem('user-name')) {
+      this.userName = window.sessionStorage.getItem('user-name');
     }
     else
     {

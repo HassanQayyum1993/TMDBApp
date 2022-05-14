@@ -7,6 +7,8 @@ import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from 'app/shared-module/login/login.component';
 import { CommentService } from 'app/services/comments.service';
+import { notification } from 'app/general-services/notification.model';
+import { NotificationService } from 'app/general-services/notification.service';
 
 @Component({
   selector: 'app-movie-comments',
@@ -26,19 +28,20 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
   isEdit = false;
   editedId = 0;
 
-  @Input() isLoggedIn:any;
+  @Input() isLoggedIn: any;
   @Input() registeredUser: any;
 
   constructor(private _formBuilder: FormBuilder,
-     private _commentService: CommentService,
-      private route: ActivatedRoute,
+    private _commentService: CommentService,
+    private _notificationService: NotificationService,
+    private route: ActivatedRoute,
     private router: Router,
     private _matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    //this.registeredUser = localStorage.getItem('User');
-    //this.token = localStorage.getItem('TokenInfo')
+    //this.registeredUser = window.sessionStorage.getItem('user-name');
+    //this.token = window.sessionStorage.getItem('token-info')
     this.comment = new MovieComment([]);
     this.movieId = +this.route.snapshot.params.movieId;
     this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
@@ -55,9 +58,7 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
     })
   }
 
-  ngOnChanges()
-  {
-    debugger;
+  ngOnChanges() {
   }
 
   goToLoginPage() {
@@ -73,20 +74,32 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
       });
 
       dialogRef.afterClosed().subscribe((response) => {
-         if (response == "success") {
-           this.ngOnInit();
-         }
+        if (response == "success") {
+          this.ngOnInit();
+        }
 
       });
     }
   }
 
   addComment(el) {
-    
+
     this._commentService.postComment(this.form.getRawValue()).subscribe((res) => {
+      let notificationObj: notification = {
+        message: res.message,
+        type: res.status,
+      };
+      this._notificationService.open(notificationObj);
       this.form.patchValue({ 'Value': null });
       this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
-      el.scrollIntoView({ behavior: 'smooth', block: 'start'});
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    },
+    (err) => {
+        let notificationObj: notification = {
+            message: err,
+            type: "warning",
+        };
+        this._notificationService.open(notificationObj);
     })
 
   }
@@ -108,5 +121,5 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
       this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
     })
   }
-  
+
 }
