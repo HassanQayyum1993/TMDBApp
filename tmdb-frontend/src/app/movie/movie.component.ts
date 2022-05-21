@@ -20,7 +20,7 @@ export class MovieComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    if (window.sessionStorage.getItem('token-info')) {
+    if (window.sessionStorage.getItem('auth-token')) {
       this.isLoggedIn = true;
     }
     if (window.sessionStorage.getItem('user-name')) {

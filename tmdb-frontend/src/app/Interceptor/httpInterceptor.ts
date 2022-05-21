@@ -8,12 +8,12 @@ export class httpInterceptor implements HttpInterceptor {
         // add authorization header to request
 
         //Get Token data from session storage
-        let tokenInfo = JSON.parse(window.sessionStorage.getItem('token-info'));
-
-        if (tokenInfo && tokenInfo.token) {
+        debugger;
+        let token = window.sessionStorage.getItem('auth-token');
+        if (token) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${tokenInfo.token}`,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json;charset=utf-8'
                 }
             });

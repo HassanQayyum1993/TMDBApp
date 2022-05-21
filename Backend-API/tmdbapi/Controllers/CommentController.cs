@@ -11,6 +11,7 @@ using tmdbapi.Auth;
 using tmdbapi.Data;
 using tmdbapi.Models;
 using tmdbapi.Repos.IRepos;
+using tmdbapi.ViewModels;
 
 namespace tmdbapi.Controllers
 {
@@ -108,7 +109,7 @@ namespace tmdbapi.Controllers
         {
 
             var comment = await _commentRepository.DeleteCommentAsync(id);
-            if (comment == null)
+            if (comment == 0)
             {
                 return NotFound();
             }

@@ -74,17 +74,10 @@ export class LoginComponent implements OnInit {
 
     this.submitClick = true;
     this.authenticationService.login(this.formData.username.value, this.formData.password.value)
-      .pipe(first())
       .subscribe(
-        data => {
+        response => {
           this.isLoading=false;
-          this.matDialogRef.close("success");
-          // if (this.isFromMovieList == true) {
-          //   this.router.navigateByUrl(`/movie`);
-          // }
-          // else {
-          //   this.router.navigateByUrl(`movie/movieDetails/${this.movieId}`);
-          // }
+          this.matDialogRef.close(response);
         },
         error => {
           this.error = error;

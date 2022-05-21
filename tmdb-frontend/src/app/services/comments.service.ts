@@ -59,7 +59,6 @@ export class CommentService {
     }
 
     private handleError(error: HttpErrorResponse) {
-        debugger;
 
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.

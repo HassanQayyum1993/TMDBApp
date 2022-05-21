@@ -41,7 +41,7 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     //this.registeredUser = window.sessionStorage.getItem('user-name');
-    //this.token = window.sessionStorage.getItem('token-info')
+    //this.token = window.sessionStorage.getItem('auth-token')
     this.comment = new MovieComment([]);
     this.movieId = +this.route.snapshot.params.movieId;
     this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });

@@ -18,7 +18,7 @@ export class AppComponent {
     private router: Router) { }
 
   ngOnInit(): void {
-    if(window.sessionStorage.getItem('token-info')) {
+    if(window.sessionStorage.getItem('auth-token')) {
       this.isLoggedIn = true;
     }
     if(window.sessionStorage.getItem('user-name')){
@@ -27,7 +27,7 @@ export class AppComponent {
   }
 
   goToLogInPage() {
-    if (!window.sessionStorage.getItem('token-info')) {
+    if (!window.sessionStorage.getItem('auth-token')) {
       this.router.navigateByUrl(`/login/fromMovieList`);
     }
   }

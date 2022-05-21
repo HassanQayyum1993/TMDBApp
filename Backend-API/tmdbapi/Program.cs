@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using tmdbapi.Services.IServices;
+using tmdbapi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,9 +54,11 @@ builder.Services.AddAuthentication(options =>
 
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieHelper, MovieHelper>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();

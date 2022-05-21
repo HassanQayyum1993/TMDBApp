@@ -12,10 +12,9 @@ namespace tmdbapi.Repos
         {
             _context = context;
         }
-        public async Task<IEnumerable<Comment>> GetCommentsByMovieIdAsync(int movieId)
+        public async Task<List<Comment>> GetCommentsByMovieIdAsync(int movieId)
         {
-            return await _context.Comment.FromSqlRaw($"SELECT Id, MovieId, Value, CreatedBy, CreatedOn, UpdatedBy, UpdatedOn FROM Comment WHERE MovieId={movieId} ORDER BY Id DESC")
-                       .ToListAsync();
+            return await _context.Comment.Where(x => x.MovieId == movieId).OrderByDescending(x => x.Id).ToListAsync();
         }
         public async Task<Comment> GetCommentByIdAsync(int id)
         {
