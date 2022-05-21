@@ -11,7 +11,7 @@ export class TopMoviesListComponent implements OnInit {
 
   pageNumber: number = 1;
   topMoviesList: any;
-  displayedColumns = ['PosterImage', 'Title', 'ReleaseDate'];
+  displayedColumns = ['PosterImage', 'Title', 'Rating', 'ReleaseDate'];
   constructor(private _movieService: MovieService,
     private route: ActivatedRoute,
     private router: Router

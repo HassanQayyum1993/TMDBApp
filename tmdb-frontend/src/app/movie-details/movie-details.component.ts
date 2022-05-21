@@ -21,6 +21,7 @@ export class MovieDetailsComponent implements OnInit {
   userName: string
   isLoggedIn = false;
   token: string
+  rating: any;
 
   constructor(private authenticationService: AuthenticationService,
     private _movieService: MovieService,
@@ -45,6 +46,7 @@ export class MovieDetailsComponent implements OnInit {
 
       this.title = response.movieDetails.title;
       this.posterPath = response.movieDetails.poster_path;
+      this.rating = response.movieDetails.vote_average;
       this.genres = response.movieDetails.genres.map(function (item) {
         return item['name'];
       }).join(', ');

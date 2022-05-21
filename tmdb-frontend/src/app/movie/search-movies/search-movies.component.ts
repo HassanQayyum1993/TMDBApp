@@ -12,7 +12,7 @@ export class SearchMoviesComponent implements OnInit {
   moviesList: any;
   genreId: any = 0;
   genreList: any;
-  displayedColumns = ['PosterImage', 'Title', 'ReleaseDate'];
+  displayedColumns = ['PosterImage', 'Title', 'Rating', 'ReleaseDate'];
   searchKeyWord: string = null;
   pageNumber: number = 1;
   constructor(private _movieService: MovieService,

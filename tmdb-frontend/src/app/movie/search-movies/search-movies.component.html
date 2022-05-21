@@ -35,6 +35,12 @@
             </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="Rating">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Rating</mat-header-cell>
+            <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> {{results.vote_average}}
+            </mat-cell>
+        </ng-container>
+        
         <ng-container matColumnDef="ReleaseDate">
             <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Release Date</mat-header-cell>
             <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> {{results.release_date}}
