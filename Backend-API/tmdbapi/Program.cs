@@ -10,6 +10,8 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using tmdbapi.Services.IServices;
 using tmdbapi.Services;
+using tmdbapi.UnitOfWork;
+using tmdbapi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,10 +57,13 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieHelper, MovieHelper>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddAutoMapper(typeof(CommentProfile));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();

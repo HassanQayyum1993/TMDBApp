@@ -44,7 +44,7 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
     //this.token = window.sessionStorage.getItem('auth-token')
     this.comment = new MovieComment([]);
     this.movieId = +this.route.snapshot.params.movieId;
-    this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
+    this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { debugger; this.commentsList = data.comments; });
 
 
     this.form = this._formBuilder.group({
@@ -94,13 +94,13 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
       this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     },
-    (err) => {
+      (err) => {
         let notificationObj: notification = {
-            message: err,
-            type: "warning",
+          message: err,
+          type: "warning",
         };
         this._notificationService.open(notificationObj);
-    })
+      })
 
   }
 
@@ -111,15 +111,39 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
 
   updateComment(commentId, comment) {
     this._commentService.putComment(commentId, comment).subscribe((res) => {
+      let notificationObj: notification = {
+        message: res.message,
+        type: res.status,
+      };
+      this._notificationService.open(notificationObj);
       this.isEdit = false;
       this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
-    })
+    },
+      (err) => {
+        let notificationObj: notification = {
+          message: err,
+          type: "warning",
+        };
+        this._notificationService.open(notificationObj);
+      })
   }
 
   deleteComment(commentId) {
     this._commentService.deleteComment(commentId).subscribe((res) => {
+      let notificationObj: notification = {
+        message: res.message,
+        type: res.status,
+      };
+      this._notificationService.open(notificationObj);
       this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
-    })
+    },
+      (err) => {
+        let notificationObj: notification = {
+          message: err,
+          type: "warning",
+        };
+        this._notificationService.open(notificationObj);
+      })
   }
 
 }

@@ -26,13 +26,13 @@ export class SearchMoviesComponent implements OnInit {
   refreshList() {
     if (this.searchKeyWord != null && this.searchKeyWord != "") {
       this._movieService.GetPaginatedMoviesListWithSearch(this.searchKeyWord, this.genreId, this.pageNumber).subscribe((response) => {
-        this.moviesList = response.moviesList;
+        this.moviesList = response.movieList;
       })
     }
     else {
       if (this.genreId != 0 && this.genreId != null) {
         this._movieService.GetPaginatedMoviesListByGenre(this.genreId, this.pageNumber).subscribe((response) => {
-          this.moviesList = response.moviesList;
+          this.moviesList = response.movieList;
         })
       }
     }

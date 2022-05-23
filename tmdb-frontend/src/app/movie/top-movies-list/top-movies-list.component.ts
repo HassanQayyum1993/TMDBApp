@@ -19,14 +19,14 @@ export class TopMoviesListComponent implements OnInit {
 
   ngOnInit(): void {
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
-      this.topMoviesList = response.topMoviesList;
+      this.topMoviesList = response.movieList;
     });
   }
 
   handlePage(event) {
     this.pageNumber = event.pageIndex + 1;
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
-      this.topMoviesList = response.topMoviesList;
+      this.topMoviesList = response.movieList;
     });
   }
 

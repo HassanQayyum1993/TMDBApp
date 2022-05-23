@@ -23,7 +23,7 @@ namespace tmdbapi.Repos
         public async Task<int> PostCommentAsync(Comment comment)
         {
             _context.Comment.Add(comment);
-            await _context.SaveChangesAsync();
+           // await _context.SaveChangesAsync();
             return 1;
         }
         public async Task<int> DeleteCommentAsync(int Id)
@@ -35,31 +35,38 @@ namespace tmdbapi.Repos
             }
 
             _context.Comment.Remove(comment);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
             return 1;
         }
         public async Task<int> PutCommentAsync(int id, Comment comment)
         {
-            _context.Entry(comment).State = EntityState.Modified;
-
-            try
+            if (CommentExists(id))
             {
-                await _context.SaveChangesAsync();
+                _context.Entry(comment).State = EntityState.Modified;
+                return 1;
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!CommentExists(id))
-                {
-                    return 0;
-                }
-                else
-                {
-                    throw;
-                }
+                return 0;
             }
 
-            return 1;
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!CommentExists(id))
+            //    {
+            //        return 0;
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
         }
         private bool CommentExists(int id)
         {
