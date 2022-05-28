@@ -4,6 +4,6 @@ namespace tmdbapi.ViewModels
 {
     public class CommentListViewModel:IResponse
     {
-        public List<Comment>? Comments;
+        public List<Comment>? Comments { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 //import { Component, OnInit } from '@angular/core';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { notification } from 'app/general-services/notification.model';
   styleUrls: ['./main-toolbar.component.scss']
 })
 
-export class MainToolbarComponent implements OnInit {
+export class MainToolbarComponent implements OnInit, OnChanges {
 
   loginForm: FormGroup;
   submitClick = false;
@@ -23,11 +23,11 @@ export class MainToolbarComponent implements OnInit {
   error = '';
   movieId: number;
   isFromMovieList = false;
-  isLoading=false;
-  userName: string
-  isLoggedIn = false;
-  
-  @Input() isFromDetail: any;
+  isLoading = false;
+
+  @Input() userName: string;
+  @Input() isLoggedIn: boolean;
+  @Input() isFromDetail: boolean;
   @Output() loginEvent = new EventEmitter<any>();
 
   constructor(
@@ -37,6 +37,10 @@ export class MainToolbarComponent implements OnInit {
     private _matDialog: MatDialog,
     private _notificationService: NotificationService,
     private authenticationService: AuthenticationService,) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.ngOnInit();
+  }
 
   ngOnInit() {
     if (window.sessionStorage.getItem('auth-token')) {
@@ -61,16 +65,17 @@ export class MainToolbarComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((response) => {
-         if (response.status == "Success") {
-          let notificationObj: notification = {
-            message: response.message,
-            type: response.status,
-          };
-          this._notificationService.open(notificationObj);
-           this.ngOnInit();
-           this.loginEvent.emit();
-         }
-
+        if (response) {
+          if (response.status == "Success") {
+            let notificationObj: notification = {
+              message: response.message,
+              type: "success"
+            };
+            this._notificationService.open(notificationObj);
+            this.ngOnInit();
+            this.loginEvent.emit();
+          }
+        }
       });
     }
   }
@@ -82,8 +87,7 @@ export class MainToolbarComponent implements OnInit {
     this.loginEvent.emit();
   }
 
-  goToMovieList()
-  {
+  goToMovieList() {
     this.router.navigateByUrl(`/movie`);
   }
 }

@@ -89,7 +89,7 @@ namespace tmdbapi.Services
             }
             else
             {
-                return new Response { Status = "Success", Message = "Message deleted successfully!" };
+                return new Response { Status = "Success", Message = "Comment deleted successfully!" };
             }
         }
     }

@@ -1,4 +1,4 @@
-<main-toolbar (loginEvent)="checkLoginStatus()" [isFromDetail]="true"></main-toolbar>
+<main-toolbar [isLoggedIn]="isLoggedIn" [userName]="userName" (loginEvent)="checkLoginStatus()" [isFromDetail]="true"></main-toolbar>
 <div style="margin-left: 25px;margin-top: 30px;">
     <div fxLayout="row" fxLayoutAlign="start start">
 
@@ -30,6 +30,6 @@
             </mat-grid-tile>
         </ng-container>
     </mat-grid-list>
-    <app-movie-comments [isLoggedIn]="isLoggedIn" [registeredUser]="userName">
+    <app-movie-comments [isLoggedIn]="isLoggedIn" [registeredUser]="userName" (commentLoginEvent)="onCommentLoginEvent($event)">
     </app-movie-comments>
 </div>

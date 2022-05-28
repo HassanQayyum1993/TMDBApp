@@ -25,7 +25,7 @@ namespace tmdbapi.Controllers
             var result = await _commentService.GetCommentsByMovieIdAsync(movieId);
             if (result.Status == "Success")
             {
-                return Ok(result as CommentListViewModel);
+                return Ok(result);
             }
             else
             {

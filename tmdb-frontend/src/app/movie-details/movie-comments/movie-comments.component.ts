@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { share } from 'rxjs/operators';
@@ -30,6 +30,7 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
 
   @Input() isLoggedIn: any;
   @Input() registeredUser: any;
+  @Output() commentLoginEvent = new EventEmitter<any>();
 
   constructor(private _formBuilder: FormBuilder,
     private _commentService: CommentService,
@@ -44,7 +45,7 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
     //this.token = window.sessionStorage.getItem('auth-token')
     this.comment = new MovieComment([]);
     this.movieId = +this.route.snapshot.params.movieId;
-    this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { debugger; this.commentsList = data.comments; });
+    this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data.comments; });
 
 
     this.form = this._formBuilder.group({
@@ -56,28 +57,38 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
       UpdatedBy: this.comment.UpdatedBy,
       UpdatedOn: this.comment.UpdatedOn
     })
+
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges): void {
+    debugger;
   }
-
   goToLoginPage() {
+    this.form.controls["Value"].enable();
     if (!this.isLoggedIn) {
-      //this.router.navigateByUrl(`/login/fromMovieList`);
       let dialogRef;
       dialogRef = this._matDialog.open(LoginComponent, {
         width: '30%',
         panelClass: 'login-form-dialog',
-        // data: {
-        //   action: 'new'
-        // },
       });
 
       dialogRef.afterClosed().subscribe((response) => {
-        if (response == "success") {
-          this.ngOnInit();
+        debugger;
+        if (response) {
+          if (response.status == "Success") {
+            let notificationObj: notification = {
+              message: response.message,
+              type: "success"
+            };
+            this._notificationService.open(notificationObj);
+            this.isLoggedIn = true;
+            this.registeredUser = window.sessionStorage.getItem('user-name');
+            this.commentLoginEvent.emit({ login: this.isLoggedIn, username: this.registeredUser });
+          }
         }
-
+        else {
+          document.getElementById("myAnchor").blur();
+        }
       });
     }
   }
@@ -85,13 +96,15 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
   addComment(el) {
 
     this._commentService.postComment(this.form.getRawValue()).subscribe((res) => {
-      let notificationObj: notification = {
-        message: res.message,
-        type: res.status,
-      };
-      this._notificationService.open(notificationObj);
+      if (res.status == "Success") {
+        let notificationObj: notification = {
+          message: res.message,
+          type: "success",
+        };
+        this._notificationService.open(notificationObj);
+      }
       this.form.patchValue({ 'Value': null });
-      this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
+      this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data.comments; });
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     },
       (err) => {
@@ -117,7 +130,7 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
       };
       this._notificationService.open(notificationObj);
       this.isEdit = false;
-      this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
+      this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data.comments; });
     },
       (err) => {
         let notificationObj: notification = {
@@ -130,12 +143,15 @@ export class MovieCommentsComponent implements OnInit, OnChanges {
 
   deleteComment(commentId) {
     this._commentService.deleteComment(commentId).subscribe((res) => {
-      let notificationObj: notification = {
-        message: res.message,
-        type: res.status,
-      };
-      this._notificationService.open(notificationObj);
-      this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data; });
+      if (res.status == "Success") {
+        let notificationObj: notification = {
+          message: res.message,
+          type: "success",
+        };
+
+        this._notificationService.open(notificationObj);
+      }
+      this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data.comments; });
     },
       (err) => {
         let notificationObj: notification = {

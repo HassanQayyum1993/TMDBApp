@@ -6,14 +6,11 @@
     <form [formGroup]="form">
         <mat-form-field fxFlex style="width:1000px">
             <mat-label>Add a comment...</mat-label>
-            <textarea required formControlName="Value" Rows="1" name="Value" matInput type="text"
-                (focus)="goToLoginPage()"></textarea>
+            <textarea  id="myAnchor" required formControlName="Value" Rows="1" name="Value" matInput type="text"
+                (click)="goToLoginPage()" (change)="goToLoginPage()"></textarea>
         </mat-form-field>
     </form>
     <div fxFlex style="margin-left: 20px;">
-        <!-- <button (click)="addComment()" mat-button [disabled]="form.invalid" aria-label="ADD">
-            Comment
-        </button> -->
         <button mat-raised-button (click)="addComment(target)" [disabled]="form.invalid" aria-label="ADD" color="accent"
             class="submit-button">
             Save

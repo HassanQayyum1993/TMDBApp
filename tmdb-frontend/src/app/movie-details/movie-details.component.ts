@@ -54,22 +54,25 @@ export class MovieDetailsComponent implements OnInit {
       this.imageUrls = response.movieImageUrls;
     })
   }
- 
-  checkLoginStatus(): void
-  {
+
+  checkLoginStatus(): void {
     if (window.sessionStorage.getItem('auth-token')) {
       this.isLoggedIn = true;
     }
-    else
-    {
+    else {
       this.isLoggedIn = false;
     }
     if (window.sessionStorage.getItem('user-name')) {
       this.userName = window.sessionStorage.getItem('user-name');
     }
-    else
-    {
+    else {
       this.isLoggedIn = false;
     }
+  }
+
+  onCommentLoginEvent(event): void {
+    this.isLoggedIn = false;
+    this.isLoggedIn = event.login;
+    this.userName = event.username;
   }
 }
