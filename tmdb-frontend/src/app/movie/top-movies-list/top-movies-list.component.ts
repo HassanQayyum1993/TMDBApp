@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from 'app/general-services/notification.service';
 import { MovieService } from 'app/services/movie.service';
+import { notification } from 'app/general-services/notification.model';
 
 @Component({
   selector: 'app-top-movies-list',
@@ -13,13 +15,20 @@ export class TopMoviesListComponent implements OnInit {
   topMoviesList: any;
   displayedColumns = ['PosterImage', 'Title', 'Rating', 'ReleaseDate'];
   constructor(private _movieService: MovieService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
       this.topMoviesList = response.movieList;
+    },(err) => {
+      debugger;
+      let notificationObj: notification = {
+        message: err.message,
+        type: "warning",
+      };
+      this._notificationService.open(notificationObj);
     });
   }
 
@@ -27,6 +36,13 @@ export class TopMoviesListComponent implements OnInit {
     this.pageNumber = event.pageIndex + 1;
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
       this.topMoviesList = response.movieList;
+    },(err) => {
+      debugger;
+      let notificationObj: notification = {
+        message: err.message,
+        type: "warning",
+      };
+      this._notificationService.open(notificationObj);
     });
   }
 

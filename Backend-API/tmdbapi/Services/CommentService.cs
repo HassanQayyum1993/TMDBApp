@@ -17,21 +17,7 @@ namespace tmdbapi.Services
         public async Task<IResponse> GetCommentsByMovieIdAsync(int movieId)
         {
             var comments = await _unitOfWork.Comment.GetCommentsByMovieIdAsync(movieId);
-            List<Comment> Data = new List<Comment>();
-            foreach (var item in comments)
-            {
-                Data.Add(new Comment()
-                {
-                    CreatedBy = item.CreatedBy,
-                    CreatedOn = item.CreatedOn,
-                    Value = item.Value,
-                    UpdatedBy = item.UpdatedBy,
-                    UpdatedOn=item.UpdatedOn,
-                    Id =item.Id,
-                    MovieId = item.MovieId,
-                });
-            }
-            return new CommentListViewModel { Status="Success", Message="", Comments=Data};
+            return new CommentListViewModel { Status="Success", Message="", Comments=comments};
         }
         public async Task<IResponse> GetCommentByIdAsync(int id)
         {

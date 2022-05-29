@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 
 export class CommentService {
     url = 'https://localhost:44355/api/Comment';
-   
+
 
     constructor(private http: HttpClient) { }
 
@@ -61,16 +61,35 @@ export class CommentService {
     private handleError(error: HttpErrorResponse) {
 
         if (error.error instanceof ErrorEvent) {
+            debugger;
             // A client-side or network error occurred. Handle it accordingly.
             console.error('An error occurred:', error.error.message);
+            return throwError(error.error);
+
         } else {
+            debugger;
+            let status = 0;
+            let message = '';
+            if (error.error.message!=undefined) {
+                status = error.status;
+                message = error.error.message;
+                console.error(
+                    `Backend returned code ${status}, ` +
+                    `body was: ${message}`);
+                return throwError(error.error);
+            }
+            else {
+                status = error.status;
+                message = error.message;
+                console.error(
+                    `Backend returned code ${status}, ` +
+                    `body was: ${message}`);
+                return throwError(error);
+            }
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong.
-            console.error(
-                `Backend returned code ${error.status}, ` +
-                `body was: ${error.error}`);
+
         }
         // Return an observable with a user-facing error message.
-        return throwError(error.error.message);
     }
 }

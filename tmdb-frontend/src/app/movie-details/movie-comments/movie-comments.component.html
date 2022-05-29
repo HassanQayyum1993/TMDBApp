@@ -3,11 +3,11 @@
     <b>Comments</b>
 </p>
 <div style="margin-top: 20px; margin-left: 20px;" fxLayout="row" fxLayoutAlign="start start">
-    <form [formGroup]="form">
+    <form [formGroup]="form" (click)="goToLoginPage()">
         <mat-form-field fxFlex style="width:1000px">
             <mat-label>Add a comment...</mat-label>
-            <textarea  id="myAnchor" required formControlName="Value" Rows="1" name="Value" matInput type="text"
-                (click)="goToLoginPage()" (change)="goToLoginPage()"></textarea>
+            <textarea id="myAnchor" required formControlName="Value" Rows="1" name="Value" matInput
+                type="text"></textarea>
         </mat-form-field>
     </form>
     <div fxFlex style="margin-left: 20px;">
@@ -72,8 +72,8 @@
                     Save
                 </button>
                 &nbsp;&nbsp;
-                <button *ngIf="(results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && isLoggedIn" mat-button
-                    style="color:#ffffff;background:#c21111; margin-right: 10px;" title="Delete this Comment"
+                <button *ngIf="(results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && isLoggedIn"
+                    mat-button style="color:#ffffff;background:#c21111; margin-right: 10px;" title="Delete this Comment"
                     (click)="deleteComment(results.id)">
                     Delete
                 </button>

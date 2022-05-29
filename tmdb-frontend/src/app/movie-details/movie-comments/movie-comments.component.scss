@@ -1,3 +1,10 @@
 .scroll {
     scroll-margin-top: -20px;
   }
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+    border-top: 0;
+  }
+  textarea.mat-text-element {
+    padding: 1.84375em 0 1em 0;
+  }

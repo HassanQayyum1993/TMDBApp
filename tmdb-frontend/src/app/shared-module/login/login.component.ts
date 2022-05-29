@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from 'app/services/authentication.service';
+import { notification } from 'app/general-services/notification.model';
+import { NotificationService } from 'app/general-services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private _notificationService: NotificationService,
     public matDialogRef: MatDialogRef<LoginComponent>,) { }
 
   ngOnInit() {
@@ -80,8 +83,13 @@ export class LoginComponent implements OnInit {
           this.matDialogRef.close(response);
         },
         error => {
-          this.error = error;
+          this.isLoading=false;
           this.submitClick = false;
+          let notificationObj: notification = {
+            message: error.message,
+            type: "warning"
+          };
+          this._notificationService.open(notificationObj);
         });
   }
 }
