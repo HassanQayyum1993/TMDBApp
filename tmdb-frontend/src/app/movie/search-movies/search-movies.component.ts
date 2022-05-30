@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MovieService } from 'app/services/movie.service';
 import { notification } from 'app/general-services/notification.model';
 import { NotificationService } from 'app/general-services/notification.service';
@@ -18,7 +18,6 @@ export class SearchMoviesComponent implements OnInit {
   searchKeyWord: string = null;
   pageNumber: number = 1;
   constructor(private _movieService: MovieService,
-    private route: ActivatedRoute,
     private _notificationService: NotificationService,
     private router: Router) { }
 
@@ -38,7 +37,6 @@ export class SearchMoviesComponent implements OnInit {
       this._movieService.GetPaginatedMoviesListWithSearch(this.searchKeyWord, this.genreId, this.pageNumber).subscribe((response) => {
         this.moviesList = response.movieList;
       },(err) => {
-        debugger;
         let notificationObj: notification = {
           message: err.message,
           type: "warning",
@@ -51,7 +49,6 @@ export class SearchMoviesComponent implements OnInit {
         this._movieService.GetPaginatedMoviesListByGenre(this.genreId, this.pageNumber).subscribe((response) => {
           this.moviesList = response.movieList;
         },(err) => {
-          debugger;
           let notificationObj: notification = {
             message: err.message,
             type: "warning",

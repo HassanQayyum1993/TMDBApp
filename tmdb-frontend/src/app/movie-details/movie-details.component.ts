@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'app/services/authentication.service';
+import { ActivatedRoute } from '@angular/router';
 import { MovieService } from 'app/services/movie.service';
-import { LoginComponent } from 'app/shared-module/login/login.component';
 
 @Component({
   selector: 'app-movie-details',
@@ -23,11 +20,8 @@ export class MovieDetailsComponent implements OnInit {
   token: string
   rating: any;
 
-  constructor(private authenticationService: AuthenticationService,
-    private _movieService: MovieService,
-    private route: ActivatedRoute,
-    private _matDialog: MatDialog,
-    private router: Router) { }
+  constructor(private _movieService: MovieService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     if (window.sessionStorage.getItem('auth-token')) {

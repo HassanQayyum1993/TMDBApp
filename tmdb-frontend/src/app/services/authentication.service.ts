@@ -14,13 +14,13 @@ export class AuthenticationService {
                 // login successful if there's a jwt token in the response
                 if (response && response.token) {
                     // store user details and jwt token in session storage
-                    window.sessionStorage.setItem('user-name',username);
-                    window.sessionStorage.setItem('auth-token',response.token);
-                    window.sessionStorage.setItem('auth-token-expiry',response.expiration);
+                    window.sessionStorage.setItem('user-name', username);
+                    window.sessionStorage.setItem('auth-token', response.token);
+                    window.sessionStorage.setItem('auth-token-expiry', response.expiration);
                 }
                 return response;
             }),
-            catchError(this.handleError)
+                catchError(this.handleError)
             );
     }
 
@@ -32,18 +32,37 @@ export class AuthenticationService {
     }
 
     private handleError(error: HttpErrorResponse) {
-        debugger;
+
+        let status = 0;
+        let message = '';
+
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
-            console.error('An error occurred:', error.error.message);
+            message = error.error.message;
+            console.error('An error occurred:', message);
+            return throwError(error.error);
+
         } else {
+            if (error.error.message != undefined) {
+                status = error.status;
+                message = error.error.message;
+                console.error(
+                    `Backend returned code ${status}, ` +
+                    `body was: ${message}`);
+                return throwError(error.error);
+            }
+            else {
+                status = error.status;
+                message = error.message;
+                console.error(
+                    `Backend returned code ${status}, ` +
+                    `body was: ${message}`);
+                return throwError('An error occured while performing the request. Please try again.');
+            }
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong.
-            console.error(
-                `Backend returned code ${error.error.status}, ` +
-                `body was: ${error.error.message}`);
+
         }
         // Return an observable with a user-facing error message.
-        return throwError(error.error);
     }
 }

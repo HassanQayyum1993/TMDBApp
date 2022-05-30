@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NotificationService } from 'app/general-services/notification.service';
 import { MovieService } from 'app/services/movie.service';
 import { notification } from 'app/general-services/notification.model';
@@ -23,7 +23,6 @@ export class TopMoviesListComponent implements OnInit {
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
       this.topMoviesList = response.movieList;
     },(err) => {
-      debugger;
       let notificationObj: notification = {
         message: err.message,
         type: "warning",
@@ -37,7 +36,6 @@ export class TopMoviesListComponent implements OnInit {
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
       this.topMoviesList = response.movieList;
     },(err) => {
-      debugger;
       let notificationObj: notification = {
         message: err.message,
         type: "warning",

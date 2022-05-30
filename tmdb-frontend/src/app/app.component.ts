@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 
 @Component({
@@ -14,7 +14,6 @@ export class AppComponent {
   isLoggedIn = false;
   token: string
   constructor(private authenticationService: AuthenticationService,
-    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {

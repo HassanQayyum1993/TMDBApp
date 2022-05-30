@@ -1,9 +1,8 @@
 //import { Component, OnInit } from '@angular/core';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { NotificationService } from 'app/general-services/notification.service';
@@ -31,14 +30,12 @@ export class MainToolbarComponent implements OnInit, OnChanges {
   @Output() loginEvent = new EventEmitter<any>();
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private _matDialog: MatDialog,
     private _notificationService: NotificationService,
     private authenticationService: AuthenticationService,) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.ngOnInit();
   }
 

@@ -1,8 +1,7 @@
 //import { Component, OnInit } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { notification } from 'app/general-services/notification.model';
@@ -39,7 +38,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
     private authenticationService: AuthenticationService,
     private _notificationService: NotificationService,
     public matDialogRef: MatDialogRef<LoginComponent>,) { }

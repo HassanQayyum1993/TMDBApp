@@ -46,7 +46,6 @@ export class MovieCommentsComponent implements OnInit {
     this.movieId = +this.route.snapshot.params.movieId;
     this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data.comments; },
     (err) => {
-      debugger;
       let notificationObj: notification = {
         message: err.message,
         type: "warning",
@@ -77,7 +76,6 @@ export class MovieCommentsComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((response) => {
-        debugger;
         if (response) {
           if (response.status == "Success") {
             let notificationObj: notification = {
@@ -100,7 +98,6 @@ export class MovieCommentsComponent implements OnInit {
   addComment(el) {
 
     this._commentService.postComment(this.form.getRawValue()).subscribe((res) => {
-      debugger;
       if (res.status == "Success") {
         let notificationObj: notification = {
           message: res.message,
