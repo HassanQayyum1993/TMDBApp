@@ -2,46 +2,46 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AppConstants } from 'app/app.constants';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class MovieService {
-    url = 'https://localhost:44355/api/Movie';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private constants: AppConstants) { }
 
     getMovieDetails(movieId: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetMovieDetails?movieId=' + movieId)
+        return this.http.get<any>(this.constants.URL + 'Movie/GetMovieDetails?movieId=' + movieId)
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     getPaginatedTopMoviesList(pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedTopMoviesList?pageNumber=' + pageNumber)
+        return this.http.get<any>(this.constants.URL + 'Movie/GetPaginatedTopMoviesList?pageNumber=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     GetPaginatedMoviesListWithSearch(searchKeyWord: string, genreId: number, pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedMoviesListWithSearch?searchKeyWord=' + searchKeyWord + '&genreId=' + genreId + '&pageNumber=' + pageNumber)
+        return this.http.get<any>(this.constants.URL + 'Movie/GetPaginatedMoviesListWithSearch?searchKeyWord=' + searchKeyWord + '&genreId=' + genreId + '&pageNumber=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     GetPaginatedMoviesListByGenre(genreId: number, pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetPaginatedMoviesListByGenre?genreId=' + genreId + '&pageNumber=' + pageNumber)
+        return this.http.get<any>(this.constants.URL + 'Movie/GetPaginatedMoviesListByGenre?genreId=' + genreId + '&pageNumber=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     GetMoviesGenreList(): Observable<any> {
-        return this.http.get<any>(this.url + '/GetMoviesGenreList')
+        return this.http.get<any>(this.constants.URL + 'Movie/GetMoviesGenreList')
             .pipe(
                 catchError(this.handleError)
             );

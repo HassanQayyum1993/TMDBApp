@@ -3,13 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { AppConstants } from 'app/app.constants';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private constants: AppConstants) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>('https://localhost:44355/api/Authenticate/login', { username, password })
+        return this.http.post<any>(this.constants.URL + 'Authenticate/login', { username, password })
             .pipe(map(response => {
                 // login successful if there's a jwt token in the response
                 if (response && response.token) {

@@ -3,19 +3,18 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AppConstants } from 'app/app.constants';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class CommentService {
-    url = 'https://localhost:44355/api/Comment';
 
-
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private constants: AppConstants) { }
 
     getCommentsByMovieId(movieId: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetCommentsByMovieId?movieId=' + movieId)
+        return this.http.get<any>(this.constants.URL + 'Comment/GetCommentsByMovieId?movieId=' + movieId)
             .pipe(
                 catchError(this.handleError)
             );
@@ -24,35 +23,35 @@ export class CommentService {
 
 
     getCommentById(pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.url + '/GetCommentById?id=' + pageNumber)
+        return this.http.get<any>(this.constants.URL + 'Comment/GetCommentById?id=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     postComment(sourceObj: any): Observable<any> {
-        return this.http.post<any>(this.url + `/PostComment`, JSON.stringify(sourceObj))
+        return this.http.post<any>(this.constants.URL + `Comment/PostComment`, JSON.stringify(sourceObj))
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     putComment(commentId: number, sourceObj: any): Observable<any> {
-        return this.http.put<any>(this.url + `/PutComment?id=` + commentId, JSON.stringify(sourceObj))
+        return this.http.put<any>(this.constants.URL + `Comment/PutComment?id=` + commentId, JSON.stringify(sourceObj))
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     updateComment(sourceObj: any): Observable<any> {
-        return this.http.put<any>(this.url + `/PutComment`, JSON.stringify(sourceObj))
+        return this.http.put<any>(this.constants.URL + `Comment/PutComment`, JSON.stringify(sourceObj))
             .pipe(
                 catchError(this.handleError)
             );
     }
 
     deleteComment(commentId: number): Observable<any> {
-        return this.http.delete<any>(this.url + '/DeleteComment?id=' + commentId)
+        return this.http.delete<any>(this.constants.URL + 'Comment/DeleteComment?id=' + commentId)
             .pipe(
                 catchError(this.handleError)
             );
