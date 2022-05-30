@@ -43,6 +43,7 @@ export class SearchMoviesComponent implements OnInit {
         this.moviesList = response.movieList;
         this.input = true;
       }, (err) => {
+        this.input = true;
         let notificationObj: notification = {
           message: err.message,
           type: "warning",
@@ -57,6 +58,7 @@ export class SearchMoviesComponent implements OnInit {
           this.moviesList = response.movieList;
           this.input = true;
         }, (err) => {
+          this.input = true;
           let notificationObj: notification = {
             message: err.message,
             type: "warning",

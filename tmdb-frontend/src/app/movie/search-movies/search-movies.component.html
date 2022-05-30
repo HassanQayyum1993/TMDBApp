@@ -70,9 +70,10 @@
                 <b>No Data Found</b>
             </div>
         </mat-card>
-
-        <mat-paginator *ngIf="moviesList.total_results > 0" [length]="moviesList.total_results" [pageSizeOptions]="[20]"
-            [showFirstLastButtons]="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="handlePage($event)">
-        </mat-paginator>
     </div>
+</div>
+<div *ngIf="moviesList">
+    <mat-paginator *ngIf="moviesList.total_results > 0" [length]="moviesList.total_results" [pageSizeOptions]="[20]"
+        [showFirstLastButtons]="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="handlePage($event)">
+    </mat-paginator>
 </div>
