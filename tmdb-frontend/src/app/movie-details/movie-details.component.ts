@@ -19,6 +19,7 @@ export class MovieDetailsComponent implements OnInit {
   isLoggedIn = false;
   token: string
   rating: any;
+  response: any = null;
 
   constructor(private _movieService: MovieService,
     private route: ActivatedRoute) { }
@@ -34,6 +35,8 @@ export class MovieDetailsComponent implements OnInit {
     this.movieId = +this.route.snapshot.params.movieId;
     localStorage.setItem('MovieId', this.movieId.toString());
     this._movieService.getMovieDetails(this.movieId).subscribe((response) => {
+      this.response = response;
+
       this.names = response.movieCast.cast.map(function (item) {
         return item['name'];
       }).join(', ');

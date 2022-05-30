@@ -17,13 +17,14 @@ export class SearchMoviesComponent implements OnInit {
   displayedColumns = ['PosterImage', 'Title', 'Rating', 'ReleaseDate'];
   searchKeyWord: string = null;
   pageNumber: number = 1;
+  input: boolean = true;
+
   constructor(private _movieService: MovieService,
     private _notificationService: NotificationService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this._movieService.GetMoviesGenreList().subscribe((response) => { this.genreList = response.genreList.genres },(err) => {
-      debugger;
+    this._movieService.GetMoviesGenreList().subscribe((response) => { this.genreList = response.genreList.genres }, (err) => {
       let notificationObj: notification = {
         message: err.message,
         type: "warning",
@@ -33,10 +34,15 @@ export class SearchMoviesComponent implements OnInit {
   }
 
   refreshList() {
+
+    this.moviesList = null;
+
     if (this.searchKeyWord != null && this.searchKeyWord != "") {
+      this.input = false;
       this._movieService.GetPaginatedMoviesListWithSearch(this.searchKeyWord, this.genreId, this.pageNumber).subscribe((response) => {
         this.moviesList = response.movieList;
-      },(err) => {
+        this.input = true;
+      }, (err) => {
         let notificationObj: notification = {
           message: err.message,
           type: "warning",
@@ -46,9 +52,11 @@ export class SearchMoviesComponent implements OnInit {
     }
     else {
       if (this.genreId != 0 && this.genreId != null) {
+        this.input = false;
         this._movieService.GetPaginatedMoviesListByGenre(this.genreId, this.pageNumber).subscribe((response) => {
           this.moviesList = response.movieList;
-        },(err) => {
+          this.input = true;
+        }, (err) => {
           let notificationObj: notification = {
             message: err.message,
             type: "warning",

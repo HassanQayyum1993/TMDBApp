@@ -1,5 +1,17 @@
 <main-toolbar [isLoggedIn]="isLoggedIn" [userName]="userName" (loginEvent)="checkLoginStatus()" [isFromDetail]="true"></main-toolbar>
-<div style="margin-left: 25px;margin-top: 30px;">
+
+<ng-template #loading>
+    <div style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+        ">
+        <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
+    </div>
+</ng-template>
+
+<div *ngIf="response; else loading" style="margin-left: 25px;margin-top: 30px;">
     <div fxLayout="row" fxLayoutAlign="start start">
 
         <div fxFlex.lt-md="50%" fxFlex.gt-sm="15%">

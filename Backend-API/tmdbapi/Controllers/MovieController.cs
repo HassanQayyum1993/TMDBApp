@@ -31,7 +31,6 @@ namespace tmdbapi.Controllers
         [HttpGet("GetPaginatedTopMoviesList")]
         public async Task<IActionResult> GetTopMovieList(int pageNumber)
         {
-
             var result = await _movieService.GetTopMovieListAsync(pageNumber);
             return Ok(result);
         }

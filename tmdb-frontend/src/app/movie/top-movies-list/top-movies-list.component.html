@@ -1,4 +1,15 @@
-<div *ngIf="topMoviesList">
+<ng-template #loading>
+    <div style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+        ">
+        <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
+    </div>
+</ng-template>
+
+<div *ngIf="topMoviesList; else loading">
     <mat-table style="width:70%;" #table [dataSource]="topMoviesList.results">
 
         <ng-container matColumnDef="PosterImage">
@@ -41,16 +52,7 @@
     </mat-card>
 </div>
 
-<ng-template #loading>
-    <div style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #ffffff;
-        ">
-        <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
-    </div>
-</ng-template>
+
 
 <div *ngIf="topMoviesList">
     <mat-paginator *ngIf="topMoviesList.total_results > 0" [length]="topMoviesList.total_results"

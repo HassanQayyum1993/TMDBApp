@@ -22,6 +22,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { SharedModule } from 'app/shared-module/shared.module';
 import { MovieService } from 'app/services/movie.service';
 import { CommentService } from 'app/services/comments.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const routes: Routes = [
   {
@@ -55,7 +56,8 @@ const routes: Routes = [
         MatSelectModule,
         MatPaginatorModule,
         MatCardModule,
-        SharedModule
+        SharedModule,
+        MatProgressBarModule
   ],
   providers: [MovieService, CommentService]
 })

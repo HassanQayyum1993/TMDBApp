@@ -20,6 +20,7 @@ import { TopMoviesListComponent } from './top-movies-list/top-movies-list.compon
 import { SearchMoviesComponent } from './search-movies/search-movies.component';
 import { SharedModule } from 'app/shared-module/shared.module';
 import { MovieService } from 'app/services/movie.service';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 const routes: Routes = [
   {
@@ -51,7 +52,8 @@ const routes: Routes = [
         MatPaginatorModule,
         MatTableModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        MatProgressBarModule,
   ],
   providers: [MovieService]
 })
