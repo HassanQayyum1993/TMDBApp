@@ -125,7 +125,7 @@ export class MovieCommentsComponent implements OnInit {
   }
 
   updateComment(commentId, comment) {
-    this._commentService.putComment(commentId, comment).subscribe((res) => {
+    this._commentService.updateComment(commentId, comment).subscribe((res) => {
       if (res.status == 'Success') {
         let notificationObj: notification = {
           message: res.message,
