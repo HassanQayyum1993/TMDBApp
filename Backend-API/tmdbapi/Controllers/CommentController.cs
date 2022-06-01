@@ -22,14 +22,21 @@ namespace tmdbapi.Controllers
         [Route("GetCommentsByMovieId")]
         public async Task<ActionResult> GetCommentsByMovieId(int movieId)
         {
-            var result = await _commentService.GetCommentsByMovieIdAsync(movieId);
-            if (result.Status == "Success")
+            try
             {
-                return Ok(result);
+                var result = await _commentService.GetCommentsByMovieIdAsync(movieId);
+                if (result.Status == "Success")
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
-            else
+            catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, result);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to get the movie comments!" });
             }
         }
 
@@ -38,32 +45,45 @@ namespace tmdbapi.Controllers
         [Route("GetCommentById")]
         public async Task<ActionResult<Comment>> GetCommentById(int id)
         {
-            var result = await _commentService.GetCommentByIdAsync(id);
-            if (result.Status == "Success")
+            try
             {
-                return Ok(result);
+                var result = await _commentService.GetCommentByIdAsync(id);
+                if (result.Status == "Success")
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
-            else
+            catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, result);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to get this comment!" });
             }
-
         }
 
         // PUT: api/Comments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        [Route("PutComment")]
-        public async Task<IActionResult> PutComment(int id, Comment comment)
+        [Route("Update")]
+        public async Task<IActionResult> UpdateComment(int id, Comment comment)
         {
-            var result = await _commentService.PutCommentAsync(id, comment);
-            if (result.Status == "Success")
+            try
             {
-                return Ok(result);
+                var result = await _commentService.UpdateCommentAsync(id, comment);
+                if (result.Status == "Success")
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
-            else
+            catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, result);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to update this comment!" });
             }
         }
 
@@ -74,18 +94,25 @@ namespace tmdbapi.Controllers
         [Route("PostComment")]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
-            comment.CreatedOn = DateTime.Now;
-            comment.UpdatedOn = DateTime.Now;
-            comment.CreatedBy = User.Identity.Name;
-            comment.UpdatedBy = User.Identity.Name;
-            var result = await _commentService.PostCommentAsync(comment);
-            if (result.Status == "Success")
+            try
             {
-                return Ok(result);
+                comment.CreatedOn = DateTime.Now;
+                comment.UpdatedOn = DateTime.Now;
+                comment.CreatedBy = User.Identity.Name;
+                comment.UpdatedBy = User.Identity.Name;
+                var result = await _commentService.PostCommentAsync(comment);
+                if (result.Status == "Success")
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
-            else
+            catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, result);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to add this comment!" });
             }
         }
 
@@ -95,14 +122,21 @@ namespace tmdbapi.Controllers
         [Route("DeleteComment")]
         public async Task<IActionResult> DeleteComment(int id)
         {
-            var result = await _commentService.DeleteCommentAsync(id);
-            if (result.Status == "Success")
+            try
             {
-                return Ok(result);
+                var result = await _commentService.DeleteCommentAsync(id);
+                if (result.Status == "Success")
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
-            else
+            catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, result);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to delete this comment!" });
             }
         }
     }

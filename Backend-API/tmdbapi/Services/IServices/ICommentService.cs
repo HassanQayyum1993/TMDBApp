@@ -7,7 +7,7 @@ namespace tmdbapi.Services.IServices
     {
         Task<IResponse> GetCommentsByMovieIdAsync(int movieId);
         Task<IResponse> GetCommentByIdAsync(int id);
-        Task<IResponse> PutCommentAsync(int id, Comment comment);
+        Task<IResponse> UpdateCommentAsync(int id, Comment comment);
         Task<IResponse> PostCommentAsync(Comment comment);
         Task<IResponse> DeleteCommentAsync(int id);
     }

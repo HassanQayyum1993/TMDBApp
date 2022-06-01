@@ -17,7 +17,14 @@ namespace tmdbapi.UnitOfWork
 
         public async Task CompleteAsync()
         {
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                _context.Dispose();
+            }
         }
 
         public void Dispose()

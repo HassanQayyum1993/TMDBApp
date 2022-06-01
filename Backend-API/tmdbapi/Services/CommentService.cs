@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using tmdbapi.Models;
-using tmdbapi.Repos.IRepos;
+﻿using tmdbapi.Models;
 using tmdbapi.Services.IServices;
 using tmdbapi.UnitOfWork;
 using tmdbapi.ViewModels;
 
 namespace tmdbapi.Services
 {
-    public class CommentService: ICommentService
+    public class CommentService : ICommentService
     {
         private readonly IUnitOfWork _unitOfWork;
         public CommentService(IUnitOfWork unitOfWork)
@@ -16,66 +14,100 @@ namespace tmdbapi.Services
         }
         public async Task<IResponse> GetCommentsByMovieIdAsync(int movieId)
         {
-            var comments = await _unitOfWork.Comment.GetCommentsByMovieIdAsync(movieId);
-            return new CommentListViewModel { Status="Success", Message="", Comments=comments};
+            try
+            {
+                var comments = await _unitOfWork.Comment.GetCommentsByMovieIdAsync(movieId);
+                return new CommentListViewModel { Status = "Success", Message = "", Comments = comments };
+            }
+            catch
+            {
+                return new Response { Status = "Error", Message = "Unable to get movie comments!" };
+            }
         }
         public async Task<IResponse> GetCommentByIdAsync(int id)
         {
-            var comment = await _unitOfWork.Comment.GetCommentByIdAsync(id);
-
-            if (comment == null)
+            try
             {
-                return new Response { Status="Not Found", Message="Cannot find the comment!" };
-            }
+                var comment = await _unitOfWork.Comment.GetCommentByIdAsync(id);
 
-            return new CommentViewModel { Status="Success", Message="", Comment=comment };
+                if (comment == null)
+                {
+                    return new Response { Status = "Not Found", Message = "Cannot find the comment!" };
+                }
+
+                return new CommentViewModel { Status = "Success", Message = "", Comment = comment };
+            }
+            catch
+            {
+                return new Response { Status = "Error", Message = "Unable to get this comment!" };
+            }
         }
-        public async Task<IResponse> PutCommentAsync(int id, Comment comment)
+        public async Task<IResponse> UpdateCommentAsync(int id, Comment comment)
         {
-            if (id != comment.Id)
+            try
             {
-                return new Response { Status="Error", Message="Comment not found!" };
-            }
+                if (id != comment.Id)
+                {
+                    return new Response { Status = "Error", Message = "Comment not found!" };
+                }
 
-            var result = await _unitOfWork.Comment.PutCommentAsync(id, comment);
-            await _unitOfWork.CompleteAsync();
-            if (result == 1)
-            {
-                return new Response { Status = "Success", Message = "Comment updated successfully!" };
+                var result = await _unitOfWork.Comment.UpdateCommentAsync(id, comment);
+                await _unitOfWork.CompleteAsync();
+                if (result == 1)
+                {
+                    return new Response { Status = "Success", Message = "Comment updated successfully!" };
 
+                }
+                else
+                {
+                    return new Response { Status = "Error", Message = "Comment not found!" };
+                }
             }
-            else
+            catch
             {
-                return new Response { Status = "Error", Message = "Comment not found!" };
+                return new Response { Status = "Error", Message = "Unable to update this comment!" };
             }
         }
         public async Task<IResponse> PostCommentAsync(Comment comment)
         {
-
-            var result = await _unitOfWork.Comment.PostCommentAsync(comment);
-            await _unitOfWork.CompleteAsync();
-
-            if (result == 1)
+            try
             {
-                return new Response { Status = "Success", Message = "Comment added successfully!" };
+                var result = await _unitOfWork.Comment.PostCommentAsync(comment);
+                await _unitOfWork.CompleteAsync();
+
+                if (result == 1)
+                {
+                    return new Response { Status = "Success", Message = "Comment added successfully!" };
+                }
+                else
+                {
+                    return new Response { Status = "Error", Message = "Unable to add this comment!" };
+                }
             }
-            else
+            catch
             {
                 return new Response { Status = "Error", Message = "Unable to add this comment!" };
             }
         }
         public async Task<IResponse> DeleteCommentAsync(int id)
         {
-            var result = await _unitOfWork.Comment.DeleteCommentAsync(id);
-            await _unitOfWork.CompleteAsync();
+            try
+            {
+                var result = await _unitOfWork.Comment.DeleteCommentAsync(id);
+                await _unitOfWork.CompleteAsync();
 
-            if (result == 0)
-            {
-                return new Response { Status = "Not Found", Message = "Cannot find the Comment!" };
+                if (result == 0)
+                {
+                    return new Response { Status = "Not Found", Message = "Cannot find the Comment!" };
+                }
+                else
+                {
+                    return new Response { Status = "Success", Message = "Comment deleted successfully!" };
+                }
             }
-            else
+            catch
             {
-                return new Response { Status = "Success", Message = "Comment deleted successfully!" };
+                return new Response { Status = "Error", Message = "Unable to delete this comment!" };
             }
         }
     }
