@@ -21,12 +21,12 @@ namespace tmdbapi.Repos
                 using (var result = await _httpClient.GetAsync(requestURL))
                 {
                     string content = await result.Content.ReadAsStringAsync();
-                        return content;
+                    return content;
                 }
             }
             catch
             {
-                return null;
+                throw new Exception();
             }
         }
     }

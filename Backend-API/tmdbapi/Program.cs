@@ -11,7 +11,6 @@ using Microsoft.OpenApi.Models;
 using tmdbapi.Services.IServices;
 using tmdbapi.Services;
 using tmdbapi.UnitOfWork;
-using tmdbapi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

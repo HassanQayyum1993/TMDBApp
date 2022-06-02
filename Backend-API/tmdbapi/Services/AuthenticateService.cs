@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using tmdbapi.ViewModels;
 using tmdbapi.Services.IServices;
+using tmdbapi.Constants;
 
 namespace tmdbapi.Services
 {
@@ -48,7 +49,7 @@ namespace tmdbapi.Services
 
                     return new LoginViewModel()
                     {
-                        Status = "Success",
+                        Status = Statuses.Success,
                         Message = "Signed in successfully!",
                         Token = new JwtSecurityTokenHandler().WriteToken(token),
                         Expiration = token.ValidTo
@@ -56,7 +57,7 @@ namespace tmdbapi.Services
                 }
                 return new Response()
                 {
-                    Status = "Unauthorized",
+                    Status = Statuses.Unauthorized,
                     Message = "Incorrect username or password!",
                 };
             }
@@ -64,7 +65,7 @@ namespace tmdbapi.Services
             {
                 return new Response()
                 {
-                    Status = "Error",
+                    Status = Statuses.Error,
                     Message = "Login failed!",
                 };
             }
@@ -77,7 +78,7 @@ namespace tmdbapi.Services
                 var userExists = await _userManager.FindByNameAsync(model.Username);
                 if (userExists != null)
                 {
-                    return new Response { Status = "Error", Message = "User already exists!" };
+                    return new Response { Status = Statuses.Error, Message = "User already exists!" };
                 }
                 IdentityUser user = new()
                 {
@@ -88,15 +89,15 @@ namespace tmdbapi.Services
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
                 {
-                    return new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." };
+                    return new Response { Status = Statuses.Error, Message = "User creation failed! Please check user details and try again." };
                 }
-                return new Response { Status = "Success", Message = "User created successfully!" };
+                return new Response { Status = Statuses.Success, Message = "User created successfully!" };
             }
             catch
             {
                 return new Response()
                 {
-                    Status = "Error",
+                    Status = Statuses.Error,
                     Message = "Unable to create this user!",
                 };
             }
@@ -109,7 +110,7 @@ namespace tmdbapi.Services
                 var userExists = await _userManager.FindByNameAsync(model.Username);
                 if (userExists != null)
                 {
-                    return new Response { Status = "Error", Message = "User already exists!" };
+                    return new Response { Status = Statuses.Error, Message = "User already exists!" };
                 }
                 IdentityUser user = new()
                 {
@@ -120,7 +121,7 @@ namespace tmdbapi.Services
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
                 {
-                    return new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." };
+                    return new Response { Status = Statuses.Error, Message = "User creation failed! Please check user details and try again." };
                 }
                 if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
                 {
@@ -138,13 +139,13 @@ namespace tmdbapi.Services
                 {
                     await _userManager.AddToRoleAsync(user, UserRoles.User);
                 }
-                return new IResponse { Status = "Success", Message = "User created successfully!" };
+                return new IResponse { Status = Statuses.Success, Message = "User created successfully!" };
             }
             catch
             {
                 return new Response()
                 {
-                    Status = "Error",
+                    Status = Statuses.Error,
                     Message = "Unable to create this user!",
                 };
             }

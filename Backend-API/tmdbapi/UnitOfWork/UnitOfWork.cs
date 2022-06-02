@@ -15,15 +15,17 @@ namespace tmdbapi.UnitOfWork
             Comment = new CommentRepository(context);
         }
 
-        public async Task CompleteAsync()
+        public async Task<bool> CompleteAsync()
         {
             try
             {
                 await _context.SaveChangesAsync();
+                return true;
             }
             catch
             {
                 _context.Dispose();
+                return false;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using tmdbapi.Constants;
 using tmdbapi.Repos.IRepos;
 using tmdbapi.Services.IServices;
 using tmdbapi.ViewModels;
@@ -23,11 +24,11 @@ namespace tmdbapi.Services
                 var movieImageUrls = movieImagePaths.posters.Select(e => "http://image.tmdb.org/t/p/w500" + e.file_path).ToList();
                 var movieCast = await _movieRepository.GetMovieCastAsync(movieId);
 
-                return new MovieDetailsViewModel { Status = "Success", Message = "", MovieDetails = movieDetails, MovieImageUrls = movieImageUrls, MovieCast = movieCast };
+                return new MovieDetailsViewModel { Status = Statuses.Success, Message = "", MovieDetails = movieDetails, MovieImageUrls = movieImageUrls, MovieCast = movieCast };
             }
             catch
             {
-                return new Response { Status = "Error", Message = "Unable to get movie details!" };
+                return new Response { Status = Statuses.Error, Message = "Unable to get movie details!" };
             }
         }
         public async Task<IResponse> GetTopMovieListAsync(int pageNumber)
@@ -36,11 +37,11 @@ namespace tmdbapi.Services
             {
                 var topMoviesList = await _movieRepository.GetTopMoviesListAsync(pageNumber);
                 topMoviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
-                return new MovieListViewModel { Status = "Success", Message = "", MovieList = topMoviesList };
+                return new MovieListViewModel { Status = Statuses.Success, Message = "", MovieList = topMoviesList };
             }
             catch
             {
-                return new Response { Status = "Error", Message = "Unable to get top movies!" };
+                return new Response { Status = Statuses.Error, Message = "Unable to get top movies!" };
             }
         }
         public async Task<IResponse> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, int genreId, int pageNumber)
@@ -53,11 +54,11 @@ namespace tmdbapi.Services
                     moviesList.results = moviesList.results.Where(c => c.genre_ids.Contains(genreId)).ToList();
                 }
                 moviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
-                return new MovieListViewModel { Status = "Success", Message = "", MovieList = moviesList };
+                return new MovieListViewModel { Status = Statuses.Success, Message = "", MovieList = moviesList };
             }
             catch
             {
-                return new Response { Status = "Error", Message = "Unable to get searched movies!" };
+                return new Response { Status = Statuses.Error, Message = "Unable to get searched movies!" };
             }
         }
         public async Task<IResponse> GetPaginatedMoviesListByGenreAsync(int genreId, int pageNumber)
@@ -66,11 +67,11 @@ namespace tmdbapi.Services
             {
                 var moviesList = await _movieRepository.GetPaginatedMoviesListByGenreAsync(genreId, pageNumber);
                 moviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
-                return new MovieListViewModel { Status = "Success", Message = "", MovieList = moviesList };
+                return new MovieListViewModel { Status = Statuses.Success, Message = "", MovieList = moviesList };
             }
             catch
             {
-                return new Response { Status = "Error", Message = "Unable to get movies by genre!" };
+                return new Response { Status = Statuses.Error, Message = "Unable to get movies by genre!" };
             }
         }
         public async Task<IResponse> GetMoviesGenreListAsync()
@@ -78,11 +79,11 @@ namespace tmdbapi.Services
             try
             {
                 var genreList = await _movieRepository.GetMoviesGenreListAsync();
-                return new GenreListViewModel { Status = "Success", Message = "", GenreList = genreList };
+                return new GenreListViewModel { Status = Statuses.Success, Message = "", GenreList = genreList };
             }
             catch
             {
-                return new Response { Status = "Error", Message = "Unable to get genre list!" };
+                return new Response { Status = Statuses.Error, Message = "Unable to get genre list!" };
             }
         }
     }

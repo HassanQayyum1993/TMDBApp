@@ -5,6 +5,6 @@ namespace tmdbapi.UnitOfWork
     public interface IUnitOfWork
     {
         ICommentRepository Comment { get; }
-        Task CompleteAsync();
+        Task<bool> CompleteAsync();
     }
 }

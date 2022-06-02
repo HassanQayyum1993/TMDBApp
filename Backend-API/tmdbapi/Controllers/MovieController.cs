@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using tmdbapi.Constants;
 using tmdbapi.Services.IServices;
 using tmdbapi.ViewModels;
 
@@ -21,11 +22,18 @@ namespace tmdbapi.Controllers
             try
             {
                 var result = await _movieService.GetMovieDetailsAsync(movieId);
-                return Ok(result);
+                if (result.Status == Statuses.Success)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to get movie details!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Statuses.Error, Message = "Unable to get movie details!" });
             }
         }
 
@@ -35,11 +43,18 @@ namespace tmdbapi.Controllers
             try
             {
                 var result = await _movieService.GetTopMovieListAsync(pageNumber);
-                return Ok(result);
+                if (result.Status == Statuses.Success)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to get top movies!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Statuses.Error, Message = "Unable to get top movies!" });
             }
         }
 
@@ -49,11 +64,18 @@ namespace tmdbapi.Controllers
             try
             {
                 var result = await _movieService.GetPaginatedMoviesListWithSearchAsync(searchKeyWord, genreId, pageNumber);
-                return Ok(result);
+                if (result.Status == Statuses.Success)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to get searched movies!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Statuses.Error, Message = "Unable to get searched movies!" });
             }
         }
 
@@ -63,11 +85,18 @@ namespace tmdbapi.Controllers
             try
             {
                 var result = await _movieService.GetPaginatedMoviesListByGenreAsync(genreId, pageNumber);
-                return Ok(result);
+                if (result.Status == Statuses.Success)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to get movies by genre!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Statuses.Error, Message = "Unable to get movies by genre!" });
             }
         }
 
@@ -77,11 +106,18 @@ namespace tmdbapi.Controllers
             try
             {
                 var result = await _movieService.GetMoviesGenreListAsync();
-                return Ok(result);
+                if (result.Status == Statuses.Success)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, result);
+                }
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to get genre list!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Statuses.Error, Message = "Unable to get genre list!" });
             }
         }
     }

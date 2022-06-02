@@ -23,8 +23,6 @@ export class MovieCommentsComponent implements OnInit {
   commentsList: any;
   movieId: number;
   displayedColumns = ['Value', 'Action'];
-  //registeredUser: string;
-  //token: string;
   isEdit = false;
   editedId = 0;
 
@@ -40,8 +38,6 @@ export class MovieCommentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.registeredUser = window.sessionStorage.getItem('user-name');
-    //this.token = window.sessionStorage.getItem('auth-token')
     this.comment = new MovieComment([]);
     this.movieId = +this.route.snapshot.params.movieId;
     this._commentService.getCommentsByMovieId(this.movieId).subscribe((data) => { this.commentsList = data.comments; },

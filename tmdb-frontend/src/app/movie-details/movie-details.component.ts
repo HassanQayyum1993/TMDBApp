@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from 'app/general-services/notification.service';
 import { MovieService } from 'app/services/movie.service';
-
+import { notification } from 'app/general-services/notification.model';
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.component.html',
@@ -22,7 +23,8 @@ export class MovieDetailsComponent implements OnInit {
   response: any = null;
 
   constructor(private _movieService: MovieService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private _notificationService: NotificationService) { }
 
   ngOnInit(): void {
     if (window.sessionStorage.getItem('auth-token')) {
@@ -49,6 +51,13 @@ export class MovieDetailsComponent implements OnInit {
       }).join(', ');
 
       this.imageUrls = response.movieImageUrls;
+    },
+    (err) => {
+      let notificationObj: notification = {
+        message: err.message,
+        type: "warning",
+      };
+      this._notificationService.open(notificationObj);
     })
   }
 

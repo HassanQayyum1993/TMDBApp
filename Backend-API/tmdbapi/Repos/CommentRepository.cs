@@ -20,7 +20,7 @@ namespace tmdbapi.Repos
             }
             catch
             {
-                return null;
+                throw new Exception();
             }
         }
 
@@ -32,7 +32,7 @@ namespace tmdbapi.Repos
             }
             catch
             {
-                return null;
+                throw new Exception();
             }
         }
         public async Task<int> PostCommentAsync(Comment comment)
@@ -44,7 +44,7 @@ namespace tmdbapi.Repos
             }
             catch
             {
-                return 0;
+                throw new Exception();
             }
         }
         public async Task<int> DeleteCommentAsync(int Id)
@@ -62,7 +62,7 @@ namespace tmdbapi.Repos
             }
             catch
             {
-                return 0;
+                throw new Exception();
             }
         }
         public async Task<int> UpdateCommentAsync(int id, Comment comment)
@@ -81,7 +81,7 @@ namespace tmdbapi.Repos
             }
             catch
             {
-                return 0;
+                throw new Exception();
             }
         }
         private async Task<bool> CommentExists(int id)
@@ -92,7 +92,7 @@ namespace tmdbapi.Repos
             }
             catch
             {
-                return false;
+                throw new Exception();
             }
         }
 

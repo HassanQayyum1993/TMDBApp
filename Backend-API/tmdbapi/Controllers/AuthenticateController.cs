@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using tmdbapi.Services.IServices;
 using tmdbapi.ViewModels;
+using tmdbapi.Constants;
 
 namespace tmdbapi.Controllers
 {
@@ -24,11 +25,11 @@ namespace tmdbapi.Controllers
             try
             {
                 var result = await _authenticateService.LoginAsync(model);
-                if (result.Status == "Success")
+                if (result.Status == Statuses.Success)
                 {
                     return Ok(result);
                 }
-                else if (result.Status == "Unauthorize")
+                else if (result.Status == Statuses.Unauthorized)
                 {
                     return Unauthorized(result);
                 }
@@ -39,7 +40,7 @@ namespace tmdbapi.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Login failed!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Statuses.Error, Message = "Login failed!" });
             }
         }
 
@@ -50,7 +51,7 @@ namespace tmdbapi.Controllers
             try
             {
                 var result = await _authenticateService.RegisterAsync(model);
-                if (result.Status == "Success")
+                if (result.Status == Statuses.Success)
                 {
                     return Ok(result);
                 }
@@ -61,7 +62,7 @@ namespace tmdbapi.Controllers
             }
             catch 
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to create this user!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Statuses.Error, Message = "Unable to create this user!" });
             }
         }
 
@@ -72,7 +73,7 @@ namespace tmdbapi.Controllers
             try
             {
                 var result = await _authenticateService.RegisterAdminAsync(model);
-                if (result.Status == "Success")
+                if (result.Status == Statuses.Success)
                 {
                     return Ok(result);
                 }
@@ -83,7 +84,7 @@ namespace tmdbapi.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Unable to create this user!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Statuses.Error, Message = "Unable to create this user!" });
             }
         }
     }
