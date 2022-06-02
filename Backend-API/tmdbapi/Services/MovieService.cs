@@ -7,7 +7,7 @@ using tmdbapi.ViewModels;
 
 namespace tmdbapi.Services
 {
-    public class MovieService:IMovieService
+    public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
         public MovieService(IMovieRepository movieRepository)
@@ -46,7 +46,8 @@ namespace tmdbapi.Services
         }
         public async Task<IResponse> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, int genreId, int pageNumber)
         {
-            try {
+            try
+            {
                 var moviesList = await _movieRepository.GetPaginatedMoviesListWithSearchAsync(searchKeyWord, genreId, pageNumber);
                 moviesList.results = moviesList.results.Where(c => c.title.ToUpper().Contains(searchKeyWord.ToUpper())).ToList();
                 if (genreId > 0)

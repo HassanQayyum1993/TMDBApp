@@ -30,12 +30,6 @@ namespace tmdbapi.Services
             try
             {
                 var comment = await _unitOfWork.Comment.GetCommentByIdAsync(id);
-
-                if (comment == null)
-                {
-                    return new Response { Status = Statuses.NotFound, Message = "Cannot find the comment!" };
-                }
-
                 return new CommentViewModel { Status = Statuses.Success, Message = "", Comment = comment };
             }
             catch
@@ -53,7 +47,7 @@ namespace tmdbapi.Services
                 }
 
                 var result1 = await _unitOfWork.Comment.UpdateCommentAsync(id, comment);
-                
+
                 if (result1 == 1)
                 {
                     var result2 = await _unitOfWork.CompleteAsync();
@@ -61,7 +55,7 @@ namespace tmdbapi.Services
                     {
                         return new Response { Status = Statuses.Success, Message = "Comment updated successfully!" };
                     }
-                    else 
+                    else
                     {
                         return new Response { Status = Statuses.Error, Message = "Unable to update this comment!" };
                     }
@@ -81,7 +75,7 @@ namespace tmdbapi.Services
             try
             {
                 var result1 = await _unitOfWork.Comment.PostCommentAsync(comment);
-                var result2  = await _unitOfWork.CompleteAsync();
+                var result2 = await _unitOfWork.CompleteAsync();
 
                 if (result1 == 1)
                 {
@@ -117,7 +111,7 @@ namespace tmdbapi.Services
                     {
                         return new Response { Status = Statuses.Success, Message = "Comment deleted successfully!" };
                     }
-                    else 
+                    else
                     {
                         return new Response { Status = Statuses.Error, Message = "Unable to delete this comment!" };
                     }

@@ -27,7 +27,7 @@ namespace tmdbapi.Repos
         public async Task<Comment?> GetCommentByIdAsync(int id)
         {
             try
-            { 
+            {
                 return await _context.Comment.FindAsync(id);
             }
             catch
@@ -57,7 +57,6 @@ namespace tmdbapi.Repos
                     return 0;
                 }
                 _context.Comment.Remove(comment);
-
                 return 1;
             }
             catch
@@ -69,7 +68,7 @@ namespace tmdbapi.Repos
         {
             try
             {
-                if ( await CommentExists(id))
+                if (await CommentExists(id))
                 {
                     _context.Entry(comment).State = EntityState.Modified;
                     return 1;
@@ -95,7 +94,5 @@ namespace tmdbapi.Repos
                 throw new Exception();
             }
         }
-
     }
-
 }

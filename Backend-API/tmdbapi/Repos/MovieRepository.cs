@@ -34,7 +34,7 @@ namespace tmdbapi.Repos
         {
             try
             {
-                string requestURL = Configuration["TMDBConfig:BaseUrl"] +"movie/" + movieId + "/images" + "?" + Configuration["TMDBConfig:ApiKey"];
+                string requestURL = Configuration["TMDBConfig:BaseUrl"] + "movie/" + movieId + "/images" + "?" + Configuration["TMDBConfig:ApiKey"];
                 string apiResponse = await _movieHelper.Get(requestURL);
                 return JsonSerializer.Deserialize<ImageGallery>(apiResponse);
             }
@@ -48,7 +48,7 @@ namespace tmdbapi.Repos
         {
             try
             {
-                string requestURL = Configuration["TMDBConfig:BaseUrl"]+ "movie/" + movieId + "/credits" + "?" + Configuration["TMDBConfig:ApiKey"];
+                string requestURL = Configuration["TMDBConfig:BaseUrl"] + "movie/" + movieId + "/credits" + "?" + Configuration["TMDBConfig:ApiKey"];
                 string apiResponse = await _movieHelper.Get(requestURL);
                 return JsonSerializer.Deserialize<MovieCast>(apiResponse);
             }
