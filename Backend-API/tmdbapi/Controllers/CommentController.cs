@@ -19,8 +19,8 @@ namespace tmdbapi.Controllers
             _commentService = commentService;
         }
 
+        [Route("CommentsByMovieId")]
         [HttpGet]
-        [Route("GetCommentsByMovieId")]
         public async Task<ActionResult> GetCommentsByMovieId(int movieId)
         {
             try
@@ -41,9 +41,8 @@ namespace tmdbapi.Controllers
             }
         }
 
-        // GET: api/Comments/5
+        [Route("CommentById")]
         [HttpGet]
-        [Route("GetCommentById")]
         public async Task<ActionResult<Comment>> GetCommentById(int id)
         {
             try
@@ -64,10 +63,8 @@ namespace tmdbapi.Controllers
             }
         }
 
-        // PUT: api/Comments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut]
         [Route("UpdateComment")]
+        [HttpPut]
         public async Task<IActionResult> UpdateComment(int id, Comment comment)
         {
             try
@@ -88,12 +85,10 @@ namespace tmdbapi.Controllers
             }
         }
 
-        // POST: api/Comments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
         [Authorize]
         [Route("PostComment")]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        [HttpPost]
+       public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
             try
             {
@@ -117,10 +112,9 @@ namespace tmdbapi.Controllers
             }
         }
 
-        // DELETE: api/Comments/5
-        [HttpDelete]
         [Authorize]
         [Route("DeleteComment")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteComment(int id)
         {
             try

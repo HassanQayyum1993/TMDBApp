@@ -14,7 +14,7 @@ export class CommentService {
     constructor(private http: HttpClient, private constants: AppConstants) { }
 
     getCommentsByMovieId(movieId: number): Observable<any> {
-        return this.http.get<any>(this.constants.URL + 'Comment/GetCommentsByMovieId?movieId=' + movieId)
+        return this.http.get<any>(this.constants.URL + 'Comment/CommentsByMovieId?movieId=' + movieId)
             .pipe(
                 catchError(this.handleError)
             );
@@ -23,7 +23,7 @@ export class CommentService {
 
 
     getCommentById(pageNumber: number): Observable<any> {
-        return this.http.get<any>(this.constants.URL + 'Comment/GetCommentById?id=' + pageNumber)
+        return this.http.get<any>(this.constants.URL + 'Comment/CommentById?id=' + pageNumber)
             .pipe(
                 catchError(this.handleError)
             );
@@ -76,7 +76,7 @@ export class CommentService {
                 console.error(
                     `Backend returned code ${status}, ` +
                     `body was: ${message}`);
-                return throwError('An error occured while performing the request. Please try again.');
+                    return throwError({message:'An error occured while performing the request. Please try again.'});
             }
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong.

@@ -16,7 +16,7 @@ namespace tmdbapi.Controllers
             _movieService = movieService;
         }
 
-        [HttpGet("GetMovieDetails")]
+        [HttpGet("MovieDetails")]
         public async Task<IActionResult> GetMovieDetails(int movieId)
         {
             try
@@ -37,7 +37,7 @@ namespace tmdbapi.Controllers
             }
         }
 
-        [HttpGet("GetPaginatedTopMoviesList")]
+        [HttpGet("PaginatedTopMoviesList")]
         public async Task<IActionResult> GetTopMovieList(int pageNumber)
         {
             try
@@ -58,7 +58,7 @@ namespace tmdbapi.Controllers
             }
         }
 
-        [HttpGet("GetPaginatedMoviesListWithSearch")]
+        [HttpGet("PaginatedMoviesListWithSearch")]
         public async Task<IActionResult> GetPaginatedMoviesListWithSearch(string searchKeyWord, int genreId, int pageNumber)
         {
             try
@@ -79,7 +79,7 @@ namespace tmdbapi.Controllers
             }
         }
 
-        [HttpGet("GetPaginatedMoviesListByGenre")]
+        [HttpGet("PaginatedMoviesListByGenre")]
         public async Task<IActionResult> GetPaginatedMoviesListByGenre(int genreId, int pageNumber)
         {
             try
@@ -100,7 +100,7 @@ namespace tmdbapi.Controllers
             }
         }
 
-        [HttpGet("GetMoviesGenreList")]
+        [HttpGet("MoviesGenreList")]
         public async Task<IActionResult> GetMoviesGenreList()
         {
             try
