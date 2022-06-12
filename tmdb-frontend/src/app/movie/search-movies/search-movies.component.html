@@ -18,8 +18,50 @@
         </mat-select>
     </mat-form-field>
 </div>
+<div *ngIf="moviesList; else loading">
+    <mat-table style="width:70%;" #table [dataSource]="moviesList.results">
+
+        <ng-container matColumnDef="PosterImage">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
+            <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> <img width="50" height="75"
+                    [src]="results.poster_path" />
+            </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Title">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Title</mat-header-cell>
+            <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> {{results.title}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Rating">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Rating</mat-header-cell>
+            <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> {{results.vote_average}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ReleaseDate">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Release Date</mat-header-cell>
+            <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> {{results.release_date}}
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+        <mat-row (click)="goToMovieDetails(results.id)" *matRowDef="let results; columns: displayedColumns;" style="border-color: white;margin-top: 10px;">
+        </mat-row>
+    </mat-table>
+
+    <mat-card *ngIf="moviesList.total_results < 1">
+        <div style="text-align: center;">
+            <b>No Data Found</b>
+        </div>
+    </mat-card>
+</div>
+
 <ng-template #loading>
-    <div style="
+    <div *ngIf="isSearched" style="
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,50 +70,7 @@
         <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
     </div>
 </ng-template>
-<div *ngIf="input; else loading">
-    <div *ngIf="moviesList">
-        <mat-table style="width:70%;" #table [dataSource]="moviesList.results">
 
-            <ng-container matColumnDef="PosterImage">
-                <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
-                <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> <img width="50" height="75"
-                        [src]="results.poster_path" />
-                </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="Title">
-                <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Title</mat-header-cell>
-                <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> {{results.title}}
-                </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="Rating">
-                <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Rating</mat-header-cell>
-                <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> {{results.vote_average}}
-                </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="ReleaseDate">
-                <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Release Date</mat-header-cell>
-                <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm> {{results.release_date}}
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-
-            <mat-row (click)="goToMovieDetails(results.id)" *matRowDef="let results; columns: displayedColumns;"
-                style="border-color: white;margin-top: 10px;">
-            </mat-row>
-        </mat-table>
-
-        <mat-card *ngIf="moviesList.total_results < 1">
-            <div style="text-align: center;">
-                <b>No Data Found</b>
-            </div>
-        </mat-card>
-    </div>
-</div>
 <div *ngIf="moviesList">
     <mat-paginator *ngIf="moviesList.total_results > 0" [length]="moviesList.total_results" [pageSizeOptions]="[20]"
         [showFirstLastButtons]="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="handlePage($event)">
