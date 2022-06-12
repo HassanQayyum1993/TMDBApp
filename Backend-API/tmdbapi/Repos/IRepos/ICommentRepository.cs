@@ -6,8 +6,8 @@ namespace tmdbapi.Repos.IRepos
     {
         Task<List<Comment>?> GetCommentsByMovieIdAsync(int movieId);
         Task<Comment?> GetCommentByIdAsync(int id);
-        Task<int> PostCommentAsync(Comment comment);
-        Task<int> DeleteCommentAsync(int commentId);
-        Task<int> UpdateCommentAsync(int id, Comment comment);
+        Task<bool> PostCommentAsync(Comment comment);
+        Task<bool> DeleteCommentAsync(int commentId);
+        Task<bool> UpdateCommentAsync(int id, Comment comment);
     }
 }
