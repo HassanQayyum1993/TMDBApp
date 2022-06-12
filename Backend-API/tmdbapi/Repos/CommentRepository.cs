@@ -35,47 +35,47 @@ namespace tmdbapi.Repos
                 throw new Exception();
             }
         }
-        public async Task<int> PostCommentAsync(Comment comment)
+        public async Task<bool> PostCommentAsync(Comment comment)
         {
             try
             {
                 await _context.Comment.AddAsync(comment);
-                return 1;
+                return true;
             }
             catch
             {
                 throw new Exception();
             }
         }
-        public async Task<int> DeleteCommentAsync(int Id)
+        public async Task<bool> DeleteCommentAsync(int Id)
         {
             try
             {
                 var comment = await _context.Comment.FindAsync(Id);
                 if (comment == null)
                 {
-                    return 0;
+                    return false;
                 }
                 _context.Comment.Remove(comment);
-                return 1;
+                return true;
             }
             catch
             {
                 throw new Exception();
             }
         }
-        public async Task<int> UpdateCommentAsync(int id, Comment comment)
+        public async Task<bool> UpdateCommentAsync(int id, Comment comment)
         {
             try
             {
                 if (await CommentExists(id))
                 {
                     _context.Entry(comment).State = EntityState.Modified;
-                    return 1;
+                    return true;
                 }
                 else
                 {
-                    return 0;
+                    return false;
                 }
             }
             catch

@@ -48,7 +48,7 @@ namespace tmdbapi.Services
 
                 var result1 = await _unitOfWork.Comment.UpdateCommentAsync(id, comment);
 
-                if (result1 == 1)
+                if (result1 == true)
                 {
                     var result2 = await _unitOfWork.CompleteAsync();
                     if (result2 == true)
@@ -77,7 +77,7 @@ namespace tmdbapi.Services
                 var result1 = await _unitOfWork.Comment.PostCommentAsync(comment);
                 var result2 = await _unitOfWork.CompleteAsync();
 
-                if (result1 == 1)
+                if (result1 == true)
                 {
                     if (result2 == true)
                     {
@@ -105,7 +105,7 @@ namespace tmdbapi.Services
                 var result1 = await _unitOfWork.Comment.DeleteCommentAsync(id);
                 var result2 = await _unitOfWork.CompleteAsync();
 
-                if (result1 == 1)
+                if (result1 == true)
                 {
                     if (result2 == true)
                     {

@@ -24,7 +24,6 @@ namespace tmdbapi.UnitOfWork
             }
             catch
             {
-                _context.Dispose();
                 return false;
             }
         }
