@@ -124,7 +124,7 @@
         public double vote_average { get; set; }
     }
 
-    public class MoviesList
+    public class MovieList
     {
         public int page { get; set; }
         public List<Result>? results { get; set; }
@@ -132,7 +132,7 @@
         public int total_pages { get; set; }
     }
 
-    public class GenresList
+    public class GenreList
     {
         public List<Genre>? genres { get; set; }
     }

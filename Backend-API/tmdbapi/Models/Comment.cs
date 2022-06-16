@@ -11,4 +11,10 @@
         public DateTime? UpdatedOn { get; set; }
 
     }
+
+    public class CommentList
+    { 
+        public List<Comment> Comments { get; set; }
+    }
+ 
 }

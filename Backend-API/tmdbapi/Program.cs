@@ -54,6 +54,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<ICommentService, CommentService>();

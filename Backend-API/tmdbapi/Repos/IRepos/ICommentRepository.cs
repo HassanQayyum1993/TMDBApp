@@ -4,7 +4,7 @@ namespace tmdbapi.Repos.IRepos
 {
     public interface ICommentRepository
     {
-        Task<List<Comment>?> GetCommentsByMovieIdAsync(int movieId);
+        Task<CommentList?> GetCommentsByMovieIdAsync(int movieId);
         Task<Comment?> GetCommentByIdAsync(int id);
         Task<bool> PostCommentAsync(Comment comment);
         Task<bool> DeleteCommentAsync(int commentId);

@@ -1,6 +1,8 @@
 ﻿#nullable disable
 
+using AutoMapper;
 using tmdbapi.Constants;
+using tmdbapi.Models;
 using tmdbapi.Repos.IRepos;
 using tmdbapi.Services.IServices;
 using tmdbapi.ViewModels;
@@ -10,9 +12,11 @@ namespace tmdbapi.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
-        public MovieService(IMovieRepository movieRepository)
+        private readonly IMapper _mapper;
+        public MovieService(IMovieRepository movieRepository, IMapper mapper)
         {
             _movieRepository = movieRepository;
+            _mapper = mapper;
         }
         public async Task<IResponse> GetMovieDetailsAsync(int movieId)
         {
@@ -24,9 +28,9 @@ namespace tmdbapi.Services
                 var movieImageUrls = movieImagePaths.posters.Select(e => "http://image.tmdb.org/t/p/w500" + e.file_path).ToList();
                 var movieCast = await _movieRepository.GetMovieCastAsync(movieId);
 
-                return new MovieDetailsViewModel { Status = Statuses.Success, Message = "", MovieDetails = movieDetails, MovieImageUrls = movieImageUrls, MovieCast = movieCast };
+                return new MovieViewModel { Status = Statuses.Success, Message = "", MovieDetails = _mapper.Map<MovieDetailsViewModel>(movieDetails), MovieImageUrls = movieImageUrls, MovieCast = _mapper.Map<MovieCastViewModel>(movieCast) };
             }
-            catch
+            catch(Exception ex)
             {
                 return new Response { Status = Statuses.Error, Message = "Unable to get movie details!" };
             }
@@ -37,9 +41,9 @@ namespace tmdbapi.Services
             {
                 var topMoviesList = await _movieRepository.GetTopMoviesListAsync(pageNumber);
                 topMoviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
-                return new MovieListViewModel { Status = Statuses.Success, Message = "", MovieList = topMoviesList };
+                return new MovieVIewModels { Status = Statuses.Success, Message = "", MovieList = _mapper.Map<MovieListDetailsViewModel>(topMoviesList)};
             }
-            catch
+            catch(Exception ex)
             {
                 return new Response { Status = Statuses.Error, Message = "Unable to get top movies!" };
             }
@@ -55,7 +59,7 @@ namespace tmdbapi.Services
                     moviesList.results = moviesList.results.Where(c => c.genre_ids.Contains(genreId)).ToList();
                 }
                 moviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
-                return new MovieListViewModel { Status = Statuses.Success, Message = "", MovieList = moviesList };
+                return new MovieVIewModels { Status = Statuses.Success, Message = "", MovieList = _mapper.Map<MovieListDetailsViewModel>(moviesList) };
             }
             catch
             {
@@ -68,7 +72,7 @@ namespace tmdbapi.Services
             {
                 var moviesList = await _movieRepository.GetPaginatedMoviesListByGenreAsync(genreId, pageNumber);
                 moviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
-                return new MovieListViewModel { Status = Statuses.Success, Message = "", MovieList = moviesList };
+                return new MovieVIewModels { Status = Statuses.Success, Message = "", MovieList = _mapper.Map<MovieListDetailsViewModel>(moviesList) };
             }
             catch
             {
@@ -80,7 +84,10 @@ namespace tmdbapi.Services
             try
             {
                 var genreList = await _movieRepository.GetMoviesGenreListAsync();
-                return new GenreListViewModel { Status = Statuses.Success, Message = "", GenreList = genreList };
+                var genreListViewModel = _mapper.Map<GenreListViewModel>(genreList);
+                genreListViewModel.Status = Statuses.Success;
+                genreListViewModel.Message = "";
+                return genreListViewModel;
             }
             catch
             {

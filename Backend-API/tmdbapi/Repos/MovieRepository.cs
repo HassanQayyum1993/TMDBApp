@@ -58,13 +58,13 @@ namespace tmdbapi.Repos
             }
         }
 
-        public async Task<MoviesList> GetTopMoviesListAsync(int pageNumber)
+        public async Task<MovieList> GetTopMoviesListAsync(int pageNumber)
         {
             try
             {
                 string requestURL = Configuration["TMDBConfig:BaseUrl"] + "movie/top_rated" + "?" + Configuration["TMDBConfig:ApiKey"] + "&language=en-US&page=" + pageNumber;
                 string apiResponse = await _movieHelper.Get(requestURL);
-                return JsonSerializer.Deserialize<MoviesList>(apiResponse);
+                return JsonSerializer.Deserialize<MovieList>(apiResponse);
             }
             catch
             {
@@ -72,39 +72,39 @@ namespace tmdbapi.Repos
             }
         }
 
-        public async Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, int genreId, int pageNumber)
+        public async Task<MovieList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, int genreId, int pageNumber)
         {
             try
             {
                 string requestURL = Configuration["TMDBConfig:BaseUrl"] + "search/movie" + "?" + Configuration["TMDBConfig:ApiKey"] + "&language=en-US&query=" + searchKeyWord + "&with_genres=" + genreId + "&page=" + pageNumber + "&include_adult=false";
                 string apiResponse = await _movieHelper.Get(requestURL);
-                return JsonSerializer.Deserialize<MoviesList>(apiResponse);
+                return JsonSerializer.Deserialize<MovieList>(apiResponse);
             }
             catch
             {
                 throw new Exception();
             }
         }
-        public async Task<MoviesList> GetPaginatedMoviesListByGenreAsync(int genreId, int pageNumber)
+        public async Task<MovieList> GetPaginatedMoviesListByGenreAsync(int genreId, int pageNumber)
         {
             try
             {
                 string requestURL = Configuration["TMDBConfig:BaseUrl"] + "discover/movie?" + Configuration["TMDBConfig:ApiKey"] + "&language=en-US&with_genres=" + genreId + "&page=" + pageNumber + "&include_adult=false";
                 string apiResponse = await _movieHelper.Get(requestURL);
-                return JsonSerializer.Deserialize<MoviesList>(apiResponse);
+                return JsonSerializer.Deserialize<MovieList>(apiResponse);
             }
             catch
             {
                 throw new Exception();
             }
         }
-        public async Task<GenresList> GetMoviesGenreListAsync()
+        public async Task<GenreList> GetMoviesGenreListAsync()
         {
             try
             {
                 string requestURL = Configuration["TMDBConfig:BaseUrl"] + "genre/movie/list?" + Configuration["TMDBConfig:ApiKey"] + "&language=en-US";
                 string apiResponse = await _movieHelper.Get(requestURL);
-                return JsonSerializer.Deserialize<GenresList>(apiResponse);
+                return JsonSerializer.Deserialize<GenreList>(apiResponse);
             }
             catch
             {

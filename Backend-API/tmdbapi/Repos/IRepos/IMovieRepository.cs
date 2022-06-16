@@ -7,9 +7,9 @@ namespace tmdbapi.Repos.IRepos
         Task<MovieDetails> GetMovieDetailsAsync(int movieId);
         Task<ImageGallery> GetMovieImagePathsAsync(int movieId);
         Task<MovieCast> GetMovieCastAsync(int movieId);
-        Task<MoviesList> GetTopMoviesListAsync(int pageNumber);
-        Task<MoviesList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, int genreId, int pageNumber);
-        Task<MoviesList> GetPaginatedMoviesListByGenreAsync(int genreId, int pageNumber);
-        Task<GenresList> GetMoviesGenreListAsync();
+        Task<MovieList> GetTopMoviesListAsync(int pageNumber);
+        Task<MovieList> GetPaginatedMoviesListWithSearchAsync(string searchKeyWord, int genreId, int pageNumber);
+        Task<MovieList> GetPaginatedMoviesListByGenreAsync(int genreId, int pageNumber);
+        Task<GenreList> GetMoviesGenreListAsync();
     }
 }

@@ -17,13 +17,13 @@
         </button>
     </div>
 </div>
-<div #target class="scroll">
-    <mat-table style="width:70%;" #table [dataSource]="commentsList">
+<div #target  fxLayout="row" fxLayoutAlign="start start" class="scroll">
+    <mat-table fxFlex #table [dataSource]="commentsList">
 
         <ng-container matColumnDef="Value">
-            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
-            <mat-cell *matCellDef="let results" fxHide fxShow.gt-sm>
-                <table cellspacing="2" cellpadding="2" width="100%">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let results">
+                <table  style="width: 100%" cellspacing="2" cellpadding="2">
                     <tr>
                         <td>
                             <b>{{results.updatedBy}} </b>
@@ -45,8 +45,8 @@
 
 
         <ng-container matColumnDef="Action">
-            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
-            <mat-cell *matCellDef="let results; let i=index" fxHide fxShow.gt-sm>
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let results; let i=index">
                 <button
                     *ngIf="(results.id != editedId && !isEdit) && ((results.updatedBy?.toLowerCase()==registeredUser?.toLowerCase()) && isLoggedIn)"
                     mat-button style="color: #81151e;background: lightgray;" title="Edit this Comment"

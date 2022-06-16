@@ -21,7 +21,7 @@ export class SearchMoviesComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this._movieService.GetMoviesGenreList().subscribe((response) => { this.genreList = response.genreList.genres });
+    this._movieService.GetMoviesGenreList().subscribe((response) => { this.genreList = response.genreList });
   }
 
   refreshList() {

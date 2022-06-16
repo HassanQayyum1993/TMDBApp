@@ -1,4 +1,5 @@
-﻿using tmdbapi.Constants;
+﻿using AutoMapper;
+using tmdbapi.Constants;
 using tmdbapi.Models;
 using tmdbapi.Services.IServices;
 using tmdbapi.UnitOfWork;
@@ -9,16 +10,21 @@ namespace tmdbapi.Services
     public class CommentService : ICommentService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CommentService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public CommentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task<IResponse> GetCommentsByMovieIdAsync(int movieId)
         {
             try
             {
                 var comments = await _unitOfWork.Comment.GetCommentsByMovieIdAsync(movieId);
-                return new CommentListViewModel { Status = Statuses.Success, Message = "", Comments = comments };
+                var commentList = _mapper.Map<CommentListViewModel>(comments);
+                commentList.Status = Statuses.Success;
+                commentList.Message = "";
+                return commentList;
             }
             catch
             {
@@ -30,7 +36,7 @@ namespace tmdbapi.Services
             try
             {
                 var comment = await _unitOfWork.Comment.GetCommentByIdAsync(id);
-                return new CommentViewModel { Status = Statuses.Success, Message = "", Comment = comment };
+                return new CommentViewModel { Status = Statuses.Success, Message = "", Comment = _mapper.Map<CommentDetailsViewModel>(comment) };
             }
             catch
             {

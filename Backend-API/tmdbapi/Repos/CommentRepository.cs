@@ -12,11 +12,14 @@ namespace tmdbapi.Repos
         {
             _context = context;
         }
-        public async Task<List<Comment>?> GetCommentsByMovieIdAsync(int movieId)
+        public async Task<CommentList?> GetCommentsByMovieIdAsync(int movieId)
         {
             try
             {
-                return await _context.Comment.Where(x => x.MovieId == movieId).OrderByDescending(x => x.Id).ToListAsync();
+                var comments = await _context.Comment.Where(x => x.MovieId == movieId).OrderByDescending(x => x.Id).ToListAsync();
+                var commentList =  new CommentList();
+                commentList.Comments = comments;
+                return commentList;
             }
             catch
             {

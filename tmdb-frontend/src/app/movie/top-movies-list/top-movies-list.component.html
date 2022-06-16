@@ -10,7 +10,7 @@
 </ng-template>
 
 <div *ngIf="topMoviesList; else loading">
-    <mat-table style="width:70%;" #table [dataSource]="topMoviesList.results">
+    <mat-table #table [dataSource]="topMoviesList.results">
 
         <ng-container matColumnDef="PosterImage">
             <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>
