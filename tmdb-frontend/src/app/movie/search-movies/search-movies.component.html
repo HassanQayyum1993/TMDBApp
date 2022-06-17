@@ -19,7 +19,7 @@
     </mat-form-field>
 </div>
 <div *ngIf="moviesList; else loading">
-    <mat-table style="width:70%;" #table [dataSource]="moviesList.results">
+    <mat-table #table [dataSource]="moviesList.results">
 
         <ng-container matColumnDef="PosterImage">
             <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>

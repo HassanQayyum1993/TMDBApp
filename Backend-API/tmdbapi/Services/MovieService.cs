@@ -27,6 +27,7 @@ namespace tmdbapi.Services
                 var movieImagePaths = await _movieRepository.GetMovieImagePathsAsync(movieId);
                 var movieImageUrls = movieImagePaths.posters.Select(e => "http://image.tmdb.org/t/p/w500" + e.file_path).ToList();
                 var movieCast = await _movieRepository.GetMovieCastAsync(movieId);
+                movieCast.cast = movieCast.cast.Where(c=>c.known_for_department.ToUpper() == GeneralConstants.Acting.ToUpper()).ToList();
 
                 return new MovieViewModel { Status = Statuses.Success, Message = "", MovieDetails = _mapper.Map<MovieDetailsViewModel>(movieDetails), MovieImageUrls = movieImageUrls, MovieCast = _mapper.Map<MovieCastViewModel>(movieCast) };
             }
@@ -41,9 +42,14 @@ namespace tmdbapi.Services
             {
                 var topMoviesList = await _movieRepository.GetTopMoviesListAsync(pageNumber);
                 topMoviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
-                return new MovieVIewModels { Status = Statuses.Success, Message = "", MovieList = _mapper.Map<MovieListDetailsViewModel>(topMoviesList)};
+                if (topMoviesList.total_pages > 500)
+                {
+                    topMoviesList.total_pages = 500;
+                    topMoviesList.total_results = 500 * 20;
+                }
+                return new MovieVIewModels { Status = Statuses.Success, Message = "", MovieList = _mapper.Map<MovieListDetailsViewModel>(topMoviesList) };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new Response { Status = Statuses.Error, Message = "Unable to get top movies!" };
             }
@@ -53,6 +59,11 @@ namespace tmdbapi.Services
             try
             {
                 var moviesList = await _movieRepository.GetPaginatedMoviesListWithSearchAsync(searchKeyWord, genreId, pageNumber);
+                if (moviesList.total_pages > 500)
+                {
+                    moviesList.total_pages = 500;
+                    moviesList.total_results = 500 * 20;
+                }
                 moviesList.results = moviesList.results.Where(c => c.title.ToUpper().Contains(searchKeyWord.ToUpper())).ToList();
                 if (genreId > 0)
                 {
@@ -71,6 +82,11 @@ namespace tmdbapi.Services
             try
             {
                 var moviesList = await _movieRepository.GetPaginatedMoviesListByGenreAsync(genreId, pageNumber);
+                if (moviesList.total_pages > 500)
+                {
+                    moviesList.total_pages = 500;
+                    moviesList.total_results = 500 * 20;
+                }
                 moviesList.results.ForEach(c => { c.poster_path = "http://image.tmdb.org/t/p/w500" + c.poster_path; });
                 return new MovieVIewModels { Status = Statuses.Success, Message = "", MovieList = _mapper.Map<MovieListDetailsViewModel>(moviesList) };
             }

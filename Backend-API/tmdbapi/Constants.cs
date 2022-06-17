@@ -19,4 +19,12 @@
             get { return "Unauthorized"; }
         }
     }
+
+    public class GeneralConstants
+    {
+        public static string Acting
+        {
+            get { return "ACTING"; }
+        }
+    }
 }
