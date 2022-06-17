@@ -9,7 +9,7 @@
     </div>
 </ng-template>
 
-<div *ngIf="topMoviesList; else loading">
+<div *ngIf="isLoading==false && topMoviesList; else loading">
     <mat-table #table [dataSource]="topMoviesList.results">
 
         <ng-container matColumnDef="PosterImage">

@@ -18,8 +18,8 @@
         </mat-select>
     </mat-form-field>
 </div>
-<div *ngIf="moviesList; else loading">
-    <mat-table #table [dataSource]="moviesList.results">
+<div *ngIf="isLoading==false && moviesList; else loading">
+    <mat-table #table  [dataSource]="moviesList.results">
 
         <ng-container matColumnDef="PosterImage">
             <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm></mat-header-cell>

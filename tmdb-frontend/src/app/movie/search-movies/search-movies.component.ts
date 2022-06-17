@@ -15,7 +15,9 @@ export class SearchMoviesComponent implements OnInit {
   displayedColumns = ['PosterImage', 'Title', 'Rating', 'ReleaseDate'];
   searchKeyWord: string = null;
   pageNumber: number = 1;
+  isLoading: boolean = false;
   isSearched: boolean = false;
+
   constructor(private _movieService: MovieService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -25,16 +27,18 @@ export class SearchMoviesComponent implements OnInit {
   }
 
   refreshList() {
+    this.isLoading = true;
     this.isSearched = true;
-
     if (this.searchKeyWord != null && this.searchKeyWord != "") {
       this._movieService.GetPaginatedMoviesListWithSearch(this.searchKeyWord, this.genreId, this.pageNumber).subscribe((response) => {
         this.moviesList = response.movieList;
+        this.isLoading = false;
       })
     }
     else {
       this._movieService.GetPaginatedMoviesListByGenre(this.genreId, this.pageNumber).subscribe((response) => {
         this.moviesList = response.movieList;
+        this.isLoading = false;
       })
     }
   }
@@ -46,7 +50,7 @@ export class SearchMoviesComponent implements OnInit {
 
   setGenreId(event) {
     this.genreId = event.value;
-    if (this.genreId != 0 && this.genreId != null) {
+    if ((this.genreId != 0 && this.genreId != null)||((this.genreId == 0 || this.genreId == null)&&(this.searchKeyWord!=null && this.searchKeyWord!=""))) {
       this.refreshList();
     }
     if (this.moviesList && (this.genreId == 0 || this.genreId == null)) {

@@ -14,14 +14,18 @@ export class TopMoviesListComponent implements OnInit {
   pageNumber: number = 1;
   topMoviesList: any;
   displayedColumns = ['PosterImage', 'Title', 'Rating', 'ReleaseDate'];
+  isLoading: boolean = false;
+
   constructor(private _movieService: MovieService,
     private router: Router,
     private _notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
       this.topMoviesList = response.movieList;
+      this.isLoading = false;
     },(err) => {
       let notificationObj: notification = {
         message: err.message,
@@ -32,9 +36,11 @@ export class TopMoviesListComponent implements OnInit {
   }
 
   handlePage(event) {
+    this.isLoading = true;
     this.pageNumber = event.pageIndex + 1;
     this._movieService.getPaginatedTopMoviesList(this.pageNumber).subscribe((response) => {
       this.topMoviesList = response.movieList;
+      this.isLoading = false;
     },(err) => {
       let notificationObj: notification = {
         message: err.message,
@@ -45,7 +51,6 @@ export class TopMoviesListComponent implements OnInit {
   }
 
   goToMovieDetails(Id) {
-    debugger;
     this.router.navigateByUrl(`movie/movieDetails/${Id}`)
   }
 }
