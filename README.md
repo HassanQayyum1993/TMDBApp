@@ -16,7 +16,7 @@ Run the backend on IIS Express.
 There are two users that are registered and can be used to add comments.
 
 1) Username: TestUser <br />
-   Password: "Test@123"
+   Password: Test@123
 
 2) Username: TestUser2 <br />
-   Password: "Test@123"
+   Password: Test@123
