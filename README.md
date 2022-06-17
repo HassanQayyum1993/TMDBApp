@@ -1,6 +1,6 @@
 ## Overview
 
-The app shows the paginated top movies list and searched movies list from TMDB.
+The app shows the paginated top movies list and searched movies list from TMDB. <br />
 To see the details of a movie and to add comments on a movie, you can click on the movie shown in the list.
 
 ## TmdbFrontend
@@ -15,8 +15,8 @@ Run the backend on IIS Express.
 
 There are two users that are registered and can be used to add comments.
 
-1) Uaername: TestUser
+1) Username: TestUser <br />
    Password: "Test@123"
 
-2) Uaername: TestUser2
+2) Username: TestUser2 <br />
    Password: "Test@123"
