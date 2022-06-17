@@ -5,7 +5,7 @@ To see the details of a movie and to add comments on a movie, you can click on t
 
 ## TmdbFrontend
 
-Run the frontend with ng-serve
+Run the frontend with "ng serve"
 
 ## Backend
 
