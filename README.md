@@ -11,6 +11,10 @@ Run the frontend with "ng serve"
 
 Run the backend on IIS Express.
 
+## Database
+
+Create the database by executing "script.sql".
+
 ## Users
 
 There are two users that are registered and can be used to add comments.
